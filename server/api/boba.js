@@ -1,20 +1,37 @@
 const router = require('express').Router()
+const {User} = require('../db/models')
 const {Boba} = require('../db/models')
 module.exports = router
 
 // do we need to add and http error middleware?
 
 //find user
-  //router.params?
+router.params('id', async (req, res, next id) => {
+  try {
+      const checkUser = await User.findByPk(id)
+      if(!checkUser) {
+        res.status(400)
+        } else {
+          req.requestedUser = checkUser
+          next()
+          return null
+       }
+    } catch (err) {
+      next(err)
+    }
+  })
 
 // find admin users
-/* const adminOnly = (req, res, next) => {
-
-} */
-
+const adminOnly = (req, res, next) => {
+  if(!req.session.user.isAdmin){
+    const err = new Error("Not Allowed")
+    err.status= 401
+    return next(err)
+  }
+  next()
+}
 
 //Add Boba
-// I think this will be on a different page
 router.post('/', adminOnly, async (req, res, next) => {
   try{
     const newBoba = await Boba.create(req.body)
