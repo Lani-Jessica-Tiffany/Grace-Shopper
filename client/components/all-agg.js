@@ -3,15 +3,18 @@ import React from 'react'
 import SingleInfo from './single-info'
 
 // component
-const SingleAgg = props => (
+const AllAgg = (props, {boba}) => (
   <div>
     <SingleInfo {...props} />
+    {/* {
+      boba.map(boba => <SingleInfo key={boba} {...props}/>)
+    } */}
     {/* can add other components here (e.g. Quantity, Add-ons) */}
   </div>
 )
 
 // export
-export default SingleAgg
+export default AllAgg
 
 // const CampusComponent = props => {
 //   const { campuses } = props;

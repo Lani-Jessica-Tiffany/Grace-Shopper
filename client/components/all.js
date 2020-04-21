@@ -2,7 +2,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getAllThunk} from '../store/boba'
-import SingleAgg from './single-agg'
+import AllAgg from './all-agg'
 
 // component
 class All extends Component {
@@ -10,7 +10,7 @@ class All extends Component {
     this.props.dispatchGetAllThunk()
   }
   render() {
-    return <SingleAgg {...this.props} />
+    return <AllAgg {...this.props} />
   }
 }
 
