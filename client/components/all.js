@@ -16,7 +16,7 @@ class All extends Component {
 
 // connect
 const mapStatetoProps = state => ({
-  boba: state.boba.all
+  bobas: state.boba.all
 })
 
 const mapDispatchtoProps = dispatch => ({
