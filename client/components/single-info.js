@@ -3,7 +3,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 // component
-const SingleInfo = ({boba, boba: {name, price, description, image}}) => (
+const SingleInfo = ({boba: {name, price, description, image}}) => (
   <div>
     {/* <Link to={`/campuses/${campus.id}`}>
         Campus: {campus.name}
