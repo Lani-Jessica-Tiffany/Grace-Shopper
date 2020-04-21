@@ -15,6 +15,10 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  notes: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
