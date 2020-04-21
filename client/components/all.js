@@ -1,14 +1,14 @@
 // import
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-// import { getAllCampusesFromServer } from '../redux/campuses';
+import {getAllThunk} from '../store/boba'
 import SingleAgg from './single-agg'
 
 // component
 class All extends Component {
-  // componentDidMount() {
-  //   this.props.getAllCampusesFromStore();
-  // }
+  componentDidMount() {
+    this.props.dispatchGetAllThunk()
+  }
   render() {
     return <SingleAgg {...this.props} />
   }
@@ -16,24 +16,12 @@ class All extends Component {
 
 // connect
 const mapStatetoProps = state => ({
-  boba: {
-    name: 'oolong',
-    price: 5,
-    description: 'best boba ever',
-    image: 'https://media.giphy.com/media/kBHfPMfonjJmM9fpfx/giphy.gif'
-  }
+  boba: state.boba.all
+})
+
+const mapDispatchtoProps = dispatch => ({
+  dispatchGetAllThunk: () => dispatch(getAllThunk())
 })
 
 // export
-export default connect(mapStatetoProps)(All)
-// export default All
-
-// const mapStatetoProps = state => ({
-//   campuses: state.campuses.all,
-// });
-
-// const mapDispatchtoProps = dispatch => ({
-//   getAllCampusesFromStore: () => dispatch(getAllCampusesFromServer()),
-// });
-
-// export default connect(mapStatetoProps, mapDispatchtoProps)(AllCampuses);
+export default connect(mapStatetoProps, mapDispatchtoProps)(All)
