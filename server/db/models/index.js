@@ -8,8 +8,8 @@ const Boba = require('./boba')
  *    BlogPost.belongsTo(User)
  */
 
-User.belongsTo(Boba);
-User.belongsToMany(Boba);
+User.belongsTo(Boba) // userId?
+User.belongsToMany(Boba, {through: 'order'}) // orderId?
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
