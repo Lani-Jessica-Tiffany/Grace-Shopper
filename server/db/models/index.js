@@ -10,6 +10,7 @@ const OrderBoba = require('./order-boba')
  *    BlogPost.belongsTo(User)
  */
 
+User.hasMany(Order)
 Order.belongsTo(User) // orderId, userId
 Order.belongsToMany(Boba, {through: 'orderBoba'})
 Boba.belongsToMany(Order, {through: 'orderBoba'})

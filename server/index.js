@@ -60,6 +60,14 @@ const createApp = () => {
       saveUninitialized: false
     })
   )
+
+  // session counter -- can delete later
+  // app.use((req, res, next) => {
+  //   if (!req.session.counter) req.session.counter = 0
+  //   console.log('counter', ++req.session.counter) // increment THEN log
+  //   next() // needed to continue through express middleware
+  // })
+
   app.use(passport.initialize())
   app.use(passport.session())
 
