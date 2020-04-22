@@ -268,68 +268,70 @@ async function seed() {
   const orders = await Promise.all([
     Order.create({
       userId: 1,
-      bobaId: 2,
-      purchased: false,
-      quantity: 1
+      purchased: false
     }),
     Order.create({
       userId: 1,
-      bobaId: 10,
-      purchased: false,
-      quantity: 1
+      purchased: false
     }),
     Order.create({
       userId: 2,
-      bobaId: 3,
-      purchased: true,
-      quantity: 1
+      purchased: true
     }),
     Order.create({
       userId: 3,
-      bobaId: 20,
-      purchased: false,
-      quantity: 3
+      purchased: false
     }),
     Order.create({
       userId: 3,
-      bobaId: 25,
-      purchased: false,
-      quantity: 1
+      purchased: false
     }),
     Order.create({
       userId: 4,
-      bobaId: 1,
-      purchased: true,
-      quantity: 1
+      purchased: true
     }),
     Order.create({
       userId: 5,
-      bobaId: 17,
-      purchased: true,
-      quantity: 1
+      purchased: true
     }),
     Order.create({
       purchased: false
     }),
     Order.create({
-      bobaId: 11,
-      purchased: true,
-      quantity: 1
+      purchased: true
     })
   ])
 
   const historials = await Promise.all([
     Historial.create({
       orderId: 1,
-      bobaId: 2
+      bobaId: 1,
+      quantity: 2,
+      price: 5
     }),
     Historial.create({
       orderId: 1,
-      bobaId: 1
+      bobaId: 2,
+      quantity: 5,
+      price: 3
     }),
     Historial.create({
       orderId: 2,
-      bobaId: 1
+      bobaId: 3,
+      quantity: 6,
+      price: 2
+    }),
+    Historial.create({
+      orderId: 2,
+      bobaId: 4,
+      quantity: 2,
+      price: 3
+    }),
+    Historial.create({
+      orderId: 3,
+      bobaId: 1,
+      quantity: 1,
+      price: 2
     })
   ])
 
