@@ -6,7 +6,7 @@ const Historial = db.define('historial', {
     type: Sequelize.INTEGER
   },
   price: {
-    type: Sequelize.FLOAT
+    type: Sequelize.DECIMAL(5, 2)
   }
 })
 
