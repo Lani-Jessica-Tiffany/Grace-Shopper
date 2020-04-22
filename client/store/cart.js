@@ -10,7 +10,7 @@ const getAll = all => ({
 // thunk creator
 export const getAllThunk = () => async (dispatch, getState, {axios}) => {
   try {
-    const {data} = await axios.get('/api/order-boba')
+    const {data} = await axios.get('/api/cart')
     const action = getAll(data)
     dispatch(action)
   } catch (err) {

@@ -14,7 +14,7 @@ export const SingleBasic = ({boba: {id, name, imageUrl}}) => (
 export const SingleDetail = ({boba: {price, description}}) => (
   <div>
     <h5>{description}</h5>
-    <h5>Price: ${price}</h5>
+    <h5>Price: ${price / 100}</h5>
   </div>
 )
 
@@ -22,8 +22,7 @@ export const SingleCart = ({boba: {id, name, imageUrl, price, quantity}}) => (
   <div>
     <Link to={`/boba/${id}`}>{name}</Link>
     <img src={imageUrl} className="bobaImg" />
-    <h5>{description}</h5>
-    <h5>Price: ${price}</h5>
+    <h5>Price: ${price / 100}</h5>
     <h5>Quantity: ${quantity}</h5>
   </div>
 )
