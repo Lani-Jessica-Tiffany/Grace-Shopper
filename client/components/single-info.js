@@ -11,9 +11,13 @@ export const SingleBasic = ({boba: {id, name, imageUrl}}) => (
   </div>
 )
 
-export const SingleDetail = ({boba: {price, description}}) => (
-  <div>
-    <h5>{description}</h5>
-    <h5>Price: ${price}</h5>
-  </div>
-)
+export const SingleDetail = ({boba: {price, description}}) => {
+  const fixedPrice = parseFloat(price).toFixed(2)
+
+  return (
+    <div>
+      <h5>{description}</h5>
+      <h5>Price: ${fixedPrice}</h5>
+    </div>
+  )
+}
