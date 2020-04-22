@@ -271,34 +271,52 @@ async function seed() {
     Order.create({
       userId: 1,
       bobaId: 2,
-      purchased: false
+      purchased: false,
+      quantity: 1
+    }),
+    Order.create({
+      userId: 1,
+      bobaId: 10,
+      purchased: false,
+      quantity: 1
     }),
     Order.create({
       userId: 2,
       bobaId: 3,
-      purchased: true
+      purchased: true,
+      quantity: 1
     }),
     Order.create({
       userId: 3,
       bobaId: 20,
-      purchased: false
+      purchased: false,
+      quantity: 3
+    }),
+    Order.create({
+      userId: 3,
+      bobaId: 25,
+      purchased: false,
+      quantity: 1
     }),
     Order.create({
       userId: 4,
       bobaId: 1,
-      purchased: true
+      purchased: true,
+      quantity: 1
     }),
     Order.create({
       userId: 5,
       bobaId: 17,
-      purchased: true
+      purchased: true,
+      quantity: 1
     }),
     Order.create({
       purchased: false
     }),
     Order.create({
       bobaId: 11,
-      purchased: true
+      purchased: true,
+      quantity: 1
     })
   ])
 

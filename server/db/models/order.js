@@ -5,6 +5,10 @@ const Order = db.define('order', {
   purchased: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  quantity: {
+    type: Sequelize.INTEGER,
+    min: 0
   }
 })
 
