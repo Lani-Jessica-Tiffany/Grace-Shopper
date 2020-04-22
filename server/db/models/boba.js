@@ -6,13 +6,13 @@ const Boba = db.define('boba', {
     type: Sequelize.STRING
   },
   price: {
-    type: Sequelize.FLOAT
+    type: Sequelize.INTEGER
   },
   description: {
     type: Sequelize.TEXT
   },
   imageUrl: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     defaultValue: 'https://phoenix.org/wp-content/uploads/2018/07/Boba-Tea.jpg'
   }
 })
