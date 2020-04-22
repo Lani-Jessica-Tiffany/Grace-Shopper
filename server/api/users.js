@@ -5,6 +5,29 @@ module.exports = router
 
 //CHECKING ADMIN IS NOT WORKING YET
 //check the user
+/* router.param('id', async (req, res, next, id) => {
+  try {
+    const user = await User.findById(id)
+    req.requestedUser = user
+    if(!user){
+      const err = new Error('Thats not you')
+      err.status = 401
+      return next(err)
+    }
+  } catch (err){
+    next()
+  }
+}) */
+
+// check if admin users
+/* const adminOnly = (req, res, next) => {
+  if (!req.user.isAdmin) {
+    const err = new Error('Not Allowed')
+    err.status = 401
+    return next(err)
+  }
+  next()
+} */
 
 //Single user - individual user and admin
 router.get('/:id', async (req, res, next) => {
@@ -20,10 +43,10 @@ router.get('/:id', async (req, res, next) => {
 //Update User - individual user and admin
 router.put('/:id', async (req, res, next) => {
   try {
-    const updated = await User.update(req.body, {
+    await User.update(req.body, {
       where: {id: req.params.id}
     })
-    res.json(updated)
+    res.json(res.body)
   } catch (err) {
     next(err)
   }
