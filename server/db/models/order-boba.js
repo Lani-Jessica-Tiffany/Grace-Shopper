@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Historial = db.define('historial', {
+const OrderBoba = db.define('orderBoba', {
   quantity: {
     type: Sequelize.INTEGER
   },
@@ -10,4 +10,4 @@ const Historial = db.define('historial', {
   }
 })
 
-module.exports = Historial
+module.exports = OrderBoba
