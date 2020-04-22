@@ -6,7 +6,7 @@ const Boba = db.define('boba', {
     type: Sequelize.STRING
   },
   price: {
-    type: Sequelize.DECIMAL(5, 2)
+    type: Sequelize.INTEGER
   },
   description: {
     type: Sequelize.TEXT
