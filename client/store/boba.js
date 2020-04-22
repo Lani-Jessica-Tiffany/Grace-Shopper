@@ -1,7 +1,7 @@
 // action type
 const GET_ALL = 'GET_ALL'
 const GET_SINGLE = 'GET_SINGLE'
-const UPDATE = 'UPDATE'
+const UPDATE = 'UPDATE' //set_new, etc. (convention)
 
 // action creator
 const getAll = all => ({
