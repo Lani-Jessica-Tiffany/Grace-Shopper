@@ -3,11 +3,11 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 // component
-export const SingleBasic = ({boba: {id, name, image}}) => (
+export const SingleBasic = ({boba: {id, name, imageUrl}}) => (
   <div>
     <Link to={`/boba/${id}`}>{name}</Link>
-    {/* <h1>{name}</h1> */}
-    <img src={image} />
+    <br />
+    <img src={imageUrl} className="bobaImg" />
   </div>
 )
 
