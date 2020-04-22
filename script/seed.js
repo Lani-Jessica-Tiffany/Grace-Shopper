@@ -26,33 +26,242 @@ async function seed() {
       email: 'sallymae@email.com',
       isAdmin: true,
       password: 'abc'
+    }),
+    User.create({
+      firstName: 'Leslie',
+      lastName: 'Knope',
+      email: 'leslieknope@email.com',
+      password: '123',
+      isAdmin: true
+    }),
+    User.create({
+      firstName: 'Ron',
+      lastName: 'Swanson',
+      email: 'ronswanson@email.com',
+      password: '123',
+      isAdmin: true
+    }),
+    User.create({
+      firstName: 'April',
+      lastName: 'Ludgate',
+      email: 'aprilludgate@email.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Ann',
+      lastName: 'Perkins',
+      email: 'annperkins@email.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Andy',
+      lastName: 'Dwyer',
+      email: 'andydwyer@email.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Ben',
+      lastName: 'Wyatt',
+      email: 'benwyatt@email.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Tom',
+      lastName: 'Haverford',
+      email: 'tomhaverford@email.com',
+      password: '123'
     })
   ])
 
   const allBoba = await Promise.all([
     Boba.create({
+      name: 'Almond Milk Tea',
+      price: 4.5,
+      description: '',
+      imageUrl:
+        'https://www.thespruceeats.com/thmb/E0yRcfGDLVmYEFfx4QTVy5sIxt8=/3819x3819/smart/filters:no_upscale()/bubble-tea-recipe-694162-hero-02-e428d92163814642903b12c5ac14de24.jpg'
+    }),
+    Boba.create({
+      name: 'Brown Sugar Milk Tea',
+      price: 4.5,
+      description: 'Classic milk tea meets brown sugar syrup',
+      imageUrl:
+        'https://chloejohnston.com/wp-content/uploads/2019/07/bubble-milk-tea-768x1152.png'
+    }),
+    Boba.create({
       name: 'Classic Milk Tea',
       price: 4.5,
       description: 'Black tea blend with milk',
       imageUrl:
-        'https://raster-static.postmates.com/?url=com.postmates.img.prod.s3.amazonaws.com%2F6c08ded2-e631-406d-8233-282237558765%2Forig.jpg&quality=85&w=500&h=0&mode=auto&format=webp&v=4',
-      quantity: 1
+        'https://raster-static.postmates.com/?url=com.postmates.img.prod.s3.amazonaws.com%2F6c08ded2-e631-406d-8233-282237558765%2Forig.jpg&quality=85&w=500&h=0&mode=auto&format=webp&v=4'
     }),
     Boba.create({
-      name: 'Thai Tea',
-      price: 4.75,
+      name: 'Chocolate Milk Tea',
+      price: 4.5,
+      description: '',
+      imageUrl:
+        'https://i.pinimg.com/736x/0f/d1/e2/0fd1e2e751babda79d8acd3561daaa2e.jpg'
+    }),
+    Boba.create({
+      name: 'Coffee Milk Tea',
+      price: 4.5,
+      description: 'Cold-brewed cofe blend with milk',
+      imageUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Classic_bubble_tea.jpg/220px-Classic_bubble_tea.jpg'
+    }),
+    Boba.create({
+      name: 'Honeydew Milk Tea',
+      price: 4.5,
+      description: 'Staple flavor of many Asian households',
+      imageUrl:
+        'https://chloejohnston.com/wp-content/uploads/2019/07/green-bubble-tea-fruit-e1562873692463.png'
+    }),
+    Boba.create({
+      name: 'Jasmine Milk Tea',
+      price: 4.5,
+      description: 'Flowery, herbal, and mildly sweet',
+      imageUrl:
+        'https://chloejohnston.com/wp-content/uploads/2019/07/jasmine-768x509.png'
+    }),
+    Boba.create({
+      name: 'Kiwi Milk Tea',
+      price: 4.5,
+      description: '',
+      imageUrl:
+        'https://previews.123rf.com/images/foodandmore/foodandmore1206/foodandmore120600166/14168001-kiwi-boba-bubble-tea-with-fruits-and-crushed-ice-.jpg'
+    }),
+    Boba.create({
+      name: 'Lavender Milk Tea',
+      price: 4.5,
+      description: '',
+      imageUrl:
+        'https://i1.wp.com/www.talkdisney.com/news/wp-content/uploads/2019/01/Lavender-Milk-Tea.jpg?fit=1600%2C1200&ssl=1'
+    }),
+    Boba.create({
+      name: 'Mango Milk Tea',
+      price: 4.5,
+      description: 'Sinfully sweet and tantalizingly tropical',
+      imageUrl:
+        'https://chloejohnston.com/wp-content/uploads/2019/07/mango-slush-bubble.png'
+    }),
+    Boba.create({
+      name: 'Matcha Milk Tea',
+      price: 4.5,
+      description: 'Hand-whisked organic Japanese green tea with milk',
+      imageUrl:
+        'https://www.ohhowcivilized.com/wp-content/uploads/2019/05/0519-matcha-bubble-tea-9.jpg'
+    }),
+    Boba.create({
+      name: 'Mocha Milk Tea',
+      price: 4.5,
+      description: '',
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/1161/4842/products/cafe_mocha_grande.jpg?v=1525922763'
+    }),
+    Boba.create({
+      name: 'Peach Milk Tea',
+      price: 4.5,
+      description: '',
+      imageUrl:
+        'https://previews.123rf.com/images/foodandmore/foodandmore1206/foodandmore120600170/14168011-peach-boba-bubble-tea-with-fruits-and-crushed-ice.jpg'
+    }),
+    Boba.create({
+      name: 'Strawberry Milk Tea',
+      price: 4.5,
+      description: 'Slightly tangy but oh so sweet',
+      imageUrl:
+        'https://chloejohnston.com/wp-content/uploads/2019/07/strawberry-bubble-tea.png'
+    }),
+    Boba.create({
+      name: 'Thai Milk Tea',
+      price: 4.5,
       description: 'Sweet, creamy & rich, with organic condensed milk',
       imageUrl:
-        'https://theforkedspoon.com/wp-content/uploads/2018/06/Thai-Tea-Recipe-5-700x1050.jpg',
-      quantity: 3
+        'https://theforkedspoon.com/wp-content/uploads/2018/06/Thai-Tea-Recipe-5-700x1050.jpg'
     }),
     Boba.create({
-      name: 'Matcha Bubble Tea',
-      price: 5.75,
-      description: 'Hand-whisked organic Japanese green tea',
+      name: 'Taro Milk Tea',
+      price: 4.5,
+      description: 'Nutty, earthy, vanilla-esque flavor',
       imageUrl:
-        'https://www.ohhowcivilized.com/wp-content/uploads/2019/05/0519-matcha-bubble-tea-9.jpg',
-      quantity: 2
+        'https://chloejohnston.com/wp-content/uploads/2019/07/purple-tea.png'
+    }),
+    Boba.create({
+      name: 'Wintermelon Milk Tea',
+      price: 4.5,
+      description: '',
+      imageUrl:
+        'https://i.pinimg.com/originals/22/c3/33/22c333494f173c4424cdbb4b44816bd5.jpg'
+    }),
+    Boba.create({
+      name: 'Lemon Tea',
+      price: 4.0,
+      description: '',
+      imageUrl:
+        'https://popmenucloud.com/cdn-cgi/image/width=1200,height=1200,fit=scale-down,format=auto/eqruvkhi/3c3f39fc-4540-4f69-b131-11cca53ab36c'
+    }),
+    Boba.create({
+      name: 'Passion Fruit Tea',
+      price: 4.0,
+      description: '',
+      imageUrl:
+        'https://i.pinimg.com/originals/45/2f/9a/452f9af167d7b6be0f7555a1491b2fa1.jpg'
+    }),
+    Boba.create({
+      name: 'Peach Tea',
+      price: 4.0,
+      description: '',
+      imageUrl:
+        'https://i.pinimg.com/originals/40/dc/77/40dc775bda8be282c787ed34bbe35bb3.jpg'
+    }),
+    Boba.create({
+      name: 'Strawberry Tea',
+      price: 4.0,
+      description: '',
+      imageUrl:
+        'https://i.pinimg.com/474x/9e/46/7c/9e467c057792429c9faac96e8ce1c2f4.jpg'
+    }),
+    Boba.create({
+      name: 'Honeydew Slush',
+      price: 5.0,
+      description: '',
+      imageUrl:
+        'https://tapiocaexpress.weebly.com/uploads/5/0/0/9/50094743/s140656462996705697_p5_i1_w590.jpeg'
+    }),
+    Boba.create({
+      name: 'Lemon Slush',
+      price: 5.0,
+      description: '',
+      imageUrl:
+        'https://honestandtasty.com/wp-content/uploads/2016/07/Frozen-Sparkling-Lemonade-16.jpg'
+    }),
+    Boba.create({
+      name: 'Mango Slush',
+      price: 5.0,
+      description: '',
+      imageUrl:
+        'https://i.pinimg.com/originals/3b/86/3d/3b863dc4fde5d8577cf8a3a0e1773dd6.jpg'
+    }),
+    Boba.create({
+      name: 'Matcha Slush',
+      price: 5.0,
+      description: '',
+      imageUrl:
+        'https://www.tan-cha.net/wp-content/uploads/2019/07/Tan_Cha_Match_Mock.png'
+    }),
+    Boba.create({
+      name: 'Strawberry Slush',
+      price: 5.0,
+      description: '',
+      imageUrl:
+        'https://i.pinimg.com/236x/69/9c/1e/699c1e6eee16dbcbc8a151f8cb9d126b--boba-smoothie-tea-cafe.jpg'
+    }),
+    Boba.create({
+      name: 'Taro Slush',
+      price: 5.0,
+      description: '',
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/1476/7310/products/Taro_slush_large.jpg?v=1478847669'
     })
   ])
 
@@ -60,12 +269,52 @@ async function seed() {
     Order.create({
       userId: 1,
       bobaId: 2,
-      purchased: false
+      purchased: false,
+      quantity: 1
+    }),
+    Order.create({
+      userId: 1,
+      bobaId: 10,
+      purchased: false,
+      quantity: 1
     }),
     Order.create({
       userId: 2,
       bobaId: 3,
-      purchased: true
+      purchased: true,
+      quantity: 1
+    }),
+    Order.create({
+      userId: 3,
+      bobaId: 20,
+      purchased: false,
+      quantity: 3
+    }),
+    Order.create({
+      userId: 3,
+      bobaId: 25,
+      purchased: false,
+      quantity: 1
+    }),
+    Order.create({
+      userId: 4,
+      bobaId: 1,
+      purchased: true,
+      quantity: 1
+    }),
+    Order.create({
+      userId: 5,
+      bobaId: 17,
+      purchased: true,
+      quantity: 1
+    }),
+    Order.create({
+      purchased: false
+    }),
+    Order.create({
+      bobaId: 11,
+      purchased: true,
+      quantity: 1
     })
   ])
 
