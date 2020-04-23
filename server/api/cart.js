@@ -69,7 +69,7 @@ module.exports = router
 // })
 
 //All Cart
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const cart = [
       {
@@ -89,9 +89,39 @@ router.get('/', (req, res, next) => {
           'https://chloejohnston.com/wp-content/uploads/2019/07/mango-slush-bubble.png'
       }
     ]
+    if (!req.session.cart) {
+      req.session.cart = {}
+    }
     req.session.cart = cart
     res.json(req.session.cart)
   } catch (err) {
     next(err)
   }
 })
+
+// // Add items to cart
+// router.post('/', async (req, res, next) => {
+//   try {
+
+//   } catch (err) {
+//     next(err);
+//   }
+// })
+
+// // Edit items in cart
+// router.put('/', async (req, res, next) => {
+//   try {
+
+//   } catch (err) {
+//     next(err);
+//   }
+// })
+
+// // Delete items in cart
+// router.delete('/', (req, res, next) => {
+//   try {
+
+//   } catch (err) {
+//     next(err);
+//   }
+// })
