@@ -57,13 +57,19 @@ router.get('/', (req, res, next) => {
 })
 
 // Add items to cart
-// router.post('/', async (req, res, next) => {
-//   try {
-
-//   } catch (err) {
-//     next(err);
-//   }
-// })
+router.post('/', async (req, res, next) => {
+  try {
+    /*
+    grab boba id from req.params.id
+    data = grab boba obj from boba database
+    data.quantity = need to think about how to grab the quantity
+    if(!req.session.cart.id) req.session.cart = data
+    else req.session.cart.id.quantity += data.quantity
+    */
+  } catch (err) {
+    next(err)
+  }
+})
 
 // Edit items in cart - /cart/:order/:boba
 // router.put('/:order', async (req, res, next) => {
