@@ -22,11 +22,11 @@ render req.session.cart
 
 // const
 const router = require('express').Router()
-// const {Boba, Order, OrderBoba} = require('../db/models')
+const {Boba, Order, OrderBoba} = require('../db/models')
 module.exports = router
 
 // Display all item(s) or none in cart
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const cart = [
       {
@@ -46,8 +46,16 @@ router.get('/', (req, res, next) => {
           'https://chloejohnston.com/wp-content/uploads/2019/07/mango-slush-bubble.png'
       }
     ]
+
+    // const cart = await OrderBoba.findOne({
+    //   where: {
+    //     bobaId: bobaId,
+
+    //   }
+    // })
+
     if (!req.session.cart) {
-      req.session.cart = {}
+      req.session.cart = []
     }
     req.session.cart = cart
     res.json(req.session.cart)
@@ -57,13 +65,71 @@ router.get('/', (req, res, next) => {
 })
 
 // Add items to cart
-// router.post('/', async (req, res, next) => {
-//   try {
+router.post('/', async (req, res, next) => {
+  try {
+    if (req.user) {
+      let orderBoba = await OrderBoba.findOrCreate({
+        where: {
+          bobaId: req.body.bobaId,
+          orderId: req.body.orderId
+        },
+        defaults: {
+          quantity: req.body.quantity
+        }
+      })
 
-//   } catch (err) {
-//     next(err);
-//   }
-// })
+      //1 ) first see if there is unpurchsaed cart,find or create it
+      let [order] = await Order.findOrCreate({
+        where: {
+          userId: req.user.id,
+          status: false
+        }
+      })
+
+      //get the orderId
+      let orderId = order.id
+
+      //find or create specific item in cart
+      const [item, wasCreated] = await OrderBoba.findOrCreate({
+        where: {
+          orderId: orderId,
+          bobaId: req.body.bobaId
+        },
+        default: {
+          quantity: req.body.quantity //dont know syntax for def
+        }
+      })
+
+      let currentQuantity = item.quantity
+
+      //if cart exists, then update the quantity of the item as current quantity + added quantity
+      if (!wasCreated)
+        await OrderBoba.update(
+          {
+            quantity: currentQuantity + req.body.quantity
+          },
+          {
+            where: {
+              orderId: orderId,
+              bobaId: req.body.bobaId
+            }
+          }
+        )
+
+      //writingo ut my thoughts
+      /*
+      if current item in cart exists, then update quantity
+      if does not exist, cr
+      is there a sequelize method that tells me whethe something exists or not
+      so just need this above
+      */
+      console.log('BOOOOOOBA', orderBoba)
+      res.json(orderBoba)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
 
 // Edit items in cart - /cart/:order/:boba
 // router.put('/:order', async (req, res, next) => {
