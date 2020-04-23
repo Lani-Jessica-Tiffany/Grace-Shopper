@@ -11,9 +11,22 @@ export const SingleBasic = ({boba: {id, name, imageUrl}}) => (
   </div>
 )
 
-export const SingleDetail = ({boba: {price, description}}) => (
+export const SingleDetail = ({boba: {price, description}}) => {
+  price = '' + price
+  price = price.slice(0, price.length - 2) + '.' + price.slice(price.length - 2)
+  return (
+    <div>
+      <h5>{description}</h5>
+      <h5>Price: ${price}</h5>
+    </div>
+  )
+}
+
+export const SingleCart = ({boba: {id, name, imageUrl, price, quantity}}) => (
   <div>
-    <h5>{description}</h5>
-    <h5>Price: ${price}</h5>
+    <Link to={`/boba/${id}`}>{name}</Link>
+    <img src={imageUrl} className="bobaImg" />
+    <h5>Price: ${(price / 100).toFixed(2)}</h5>
+    <h5>Quantity: {quantity}</h5>
   </div>
 )
