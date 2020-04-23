@@ -22,53 +22,10 @@ render req.session.cart
 
 // const
 const router = require('express').Router()
+// const {Boba, Order, OrderBoba} = require('../db/models')
 module.exports = router
 
-//Add Boba -ADMIN FUNCTION
-// router.post('/', adminOnly, async (req, res, next) => {
-//   try {
-//     const {name, price, description, imageUrl} = req.body
-//     await Boba.create(req.body)
-//     const response = {
-//       message: 'Boba Added!',
-//       boba: {name, price, description, imageUrl}
-//     }
-//     res.json(response)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-//Update Boba -ADMIN FUNCTION
-// router.put('/:id', adminOnly, async (req, res, next) => {
-//   try {
-//     const {name, price, description, imageUrl} = req.body
-//     await Boba.update(req.body, {
-//       where: {id: req.params.id}
-//     })
-//     const response = {
-//       message: 'Boba Updated!',
-//       boba: {name, price, description, imageUrl}
-//     }
-//     res.json(response)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-//Delete Boba -ADMIN FUNCTION
-// router.delete('/:id', adminOnly, async (req, res, next) => {
-//   try {
-//     await Boba.destroy({
-//       where: {id: req.params.id}
-//     })
-//     res.status(204).end()
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-//All Cart
+// Display all item(s) or none in cart
 router.get('/', (req, res, next) => {
   try {
     const cart = [
@@ -89,9 +46,39 @@ router.get('/', (req, res, next) => {
           'https://chloejohnston.com/wp-content/uploads/2019/07/mango-slush-bubble.png'
       }
     ]
+    if (!req.session.cart) {
+      req.session.cart = {}
+    }
     req.session.cart = cart
     res.json(req.session.cart)
   } catch (err) {
     next(err)
   }
 })
+
+// Add items to cart
+// router.post('/', async (req, res, next) => {
+//   try {
+
+//   } catch (err) {
+//     next(err);
+//   }
+// })
+
+// Edit items in cart - /cart/:order/:boba
+// router.put('/:order', async (req, res, next) => {
+//   try {
+
+//   } catch (err) {
+//     next(err);
+//   }
+// })
+
+// Delete items in cart - /cart/:order
+// router.delete('/:order', (req, res, next) => {
+//   try {
+
+//   } catch (err) {
+//     next(err);
+//   }
+// })
