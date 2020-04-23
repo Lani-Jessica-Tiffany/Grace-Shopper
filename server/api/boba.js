@@ -16,10 +16,11 @@ const adminOnly = (req, res, next) => {
 //Add Boba -ADMIN FUNCTION
 router.post('/', adminOnly, async (req, res, next) => {
   try {
-    const newBoba = await Boba.create(req.body)
+    const {name, price, description, imageUrl} = req.body
+    await Boba.create(req.body)
     const response = {
       message: 'Boba Added!',
-      boba: newBoba.datavalues
+      boba: {name, price, description, imageUrl}
     }
     res.json(response)
   } catch (err) {
@@ -30,10 +31,15 @@ router.post('/', adminOnly, async (req, res, next) => {
 //Update Boba -ADMIN FUNCTION
 router.put('/:id', adminOnly, async (req, res, next) => {
   try {
-    const updated = await Boba.update(req.body, {
+    const {name, price, description, imageUrl} = req.body
+    await Boba.update(req.body, {
       where: {id: req.params.id}
     })
-    res.json(updated)
+    const response = {
+      message: 'Boba Updated!',
+      boba: {name, price, description, imageUrl}
+    }
+    res.json(response)
   } catch (err) {
     next(err)
   }
