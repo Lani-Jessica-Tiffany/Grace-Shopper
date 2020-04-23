@@ -12,6 +12,8 @@ export const SingleBasic = ({boba: {id, name, imageUrl}}) => (
 )
 
 export const SingleDetail = ({boba: {price, description}}) => {
+  console.log('price', price)
+  console.log('type', typeof price)
   price = '' + price
   price = price.slice(0, price.length - 2) + '.' + price.slice(price.length - 2)
   return (
