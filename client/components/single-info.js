@@ -11,12 +11,16 @@ export const SingleBasic = ({boba: {id, name, imageUrl}}) => (
   </div>
 )
 
-export const SingleDetail = ({boba: {price, description}}) => (
-  <div>
-    <h5>{description}</h5>
-    <h5>Price: ${(price / 100).toFixed(2)}</h5>
-  </div>
-)
+export const SingleDetail = ({boba: {price, description}}) => {
+  price = '' + price
+  price = price.slice(0, price.length - 2) + '.' + price.slice(price.length - 2)
+  return (
+    <div>
+      <h5>{description}</h5>
+      <h5>Price: ${price}</h5>
+    </div>
+  )
+}
 
 export const SingleCart = ({boba: {id, name, imageUrl, price, quantity}}) => (
   <div>

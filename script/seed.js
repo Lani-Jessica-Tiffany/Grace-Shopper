@@ -77,7 +77,7 @@ async function seed() {
     Boba.create({
       name: 'Almond Milk Tea',
       price: 450,
-      description: '',
+      description: 'Full of nutty goodness',
       imageUrl:
         'https://www.thespruceeats.com/thmb/E0yRcfGDLVmYEFfx4QTVy5sIxt8=/3819x3819/smart/filters:no_upscale()/bubble-tea-recipe-694162-hero-02-e428d92163814642903b12c5ac14de24.jpg'
     }),
@@ -98,14 +98,14 @@ async function seed() {
     Boba.create({
       name: 'Chocolate Milk Tea',
       price: 450,
-      description: '',
+      description: 'Milk tea swirled in cocoa-browns',
       imageUrl:
         'https://i.pinimg.com/736x/0f/d1/e2/0fd1e2e751babda79d8acd3561daaa2e.jpg'
     }),
     Boba.create({
       name: 'Coffee Milk Tea',
       price: 450,
-      description: 'Cold-brewed cofe blend with milk',
+      description: 'Cold-brewed coffee blend with milk',
       imageUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Classic_bubble_tea.jpg/220px-Classic_bubble_tea.jpg'
     }),
@@ -126,14 +126,14 @@ async function seed() {
     Boba.create({
       name: 'Kiwi Milk Tea',
       price: 450,
-      description: '',
+      description: 'Delicate, tart, sweet, and complex in flavor',
       imageUrl:
         'https://previews.123rf.com/images/foodandmore/foodandmore1206/foodandmore120600166/14168001-kiwi-boba-bubble-tea-with-fruits-and-crushed-ice-.jpg'
     }),
     Boba.create({
       name: 'Lavender Milk Tea',
       price: 450,
-      description: '',
+      description: 'Floral with hints of mint and rosemary',
       imageUrl:
         'https://i1.wp.com/www.talkdisney.com/news/wp-content/uploads/2019/01/Lavender-Milk-Tea.jpg?fit=1600%2C1200&ssl=1'
     }),
@@ -154,14 +154,14 @@ async function seed() {
     Boba.create({
       name: 'Mocha Milk Tea',
       price: 450,
-      description: '',
+      description: 'Fantastic drink for coffee lovers and chocolate lovers',
       imageUrl:
         'https://cdn.shopify.com/s/files/1/1161/4842/products/cafe_mocha_grande.jpg?v=1525922763'
     }),
     Boba.create({
       name: 'Peach Milk Tea',
       price: 450,
-      description: '',
+      description: 'Milk infused with natural peach flavor',
       imageUrl:
         'https://previews.123rf.com/images/foodandmore/foodandmore1206/foodandmore120600170/14168011-peach-boba-bubble-tea-with-fruits-and-crushed-ice.jpg'
     }),
@@ -189,77 +189,77 @@ async function seed() {
     Boba.create({
       name: 'Wintermelon Milk Tea',
       price: 450,
-      description: '',
+      description: 'Distinct sweet caramel flavor',
       imageUrl:
         'https://i.pinimg.com/originals/22/c3/33/22c333494f173c4424cdbb4b44816bd5.jpg'
     }),
     Boba.create({
       name: 'Lemon Tea',
       price: 400,
-      description: '',
+      description: 'Iced tea infused with real lemons',
       imageUrl:
         'https://popmenucloud.com/cdn-cgi/image/width=1200,height=1200,fit=scale-down,format=auto/eqruvkhi/3c3f39fc-4540-4f69-b131-11cca53ab36c'
     }),
     Boba.create({
       name: 'Passion Fruit Tea',
       price: 400,
-      description: '',
+      description: 'Iced tea infused with real passion fruits',
       imageUrl:
         'https://i.pinimg.com/originals/45/2f/9a/452f9af167d7b6be0f7555a1491b2fa1.jpg'
     }),
     Boba.create({
       name: 'Peach Tea',
       price: 400,
-      description: '',
+      description: 'Iced tea infused with real peaches',
       imageUrl:
         'https://i.pinimg.com/originals/40/dc/77/40dc775bda8be282c787ed34bbe35bb3.jpg'
     }),
     Boba.create({
       name: 'Strawberry Tea',
       price: 400,
-      description: '',
+      description: 'Iced tea infused with real strawberries',
       imageUrl:
         'https://i.pinimg.com/474x/9e/46/7c/9e467c057792429c9faac96e8ce1c2f4.jpg'
     }),
     Boba.create({
       name: 'Honeydew Slush',
       price: 500,
-      description: '',
+      description: 'Frozen blend of honeydew and milk',
       imageUrl:
         'https://tapiocaexpress.weebly.com/uploads/5/0/0/9/50094743/s140656462996705697_p5_i1_w590.jpeg'
     }),
     Boba.create({
       name: 'Lemon Slush',
       price: 500,
-      description: '',
+      description: 'Frozen blend of lemon and milk',
       imageUrl:
         'https://honestandtasty.com/wp-content/uploads/2016/07/Frozen-Sparkling-Lemonade-16.jpg'
     }),
     Boba.create({
       name: 'Mango Slush',
       price: 500,
-      description: '',
+      description: 'Frozen blend of mango and milk',
       imageUrl:
         'https://i.pinimg.com/originals/3b/86/3d/3b863dc4fde5d8577cf8a3a0e1773dd6.jpg'
     }),
     Boba.create({
       name: 'Matcha Slush',
       price: 500,
-      description: '',
+      description: 'Frozen blend of matcha and milk',
       imageUrl:
         'https://www.tan-cha.net/wp-content/uploads/2019/07/Tan_Cha_Match_Mock.png'
     }),
     Boba.create({
       name: 'Strawberry Slush',
       price: 500,
-      description: '',
+      description: 'Frozen blend of strawberry and milk',
       imageUrl:
         'https://i.pinimg.com/236x/69/9c/1e/699c1e6eee16dbcbc8a151f8cb9d126b--boba-smoothie-tea-cafe.jpg'
     }),
     Boba.create({
       name: 'Taro Slush',
       price: 500,
-      description: '',
+      description: 'Frozen blend of taro and milk',
       imageUrl:
         'https://cdn.shopify.com/s/files/1/1476/7310/products/Taro_slush_large.jpg?v=1478847669'
     })
