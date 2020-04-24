@@ -61,11 +61,8 @@ const createApp = () => {
     })
   )
 
-  // session counter -- can delete later
   // app.use((req, res, next) => {
   //   if (!req.session.counter) req.session.counter = 0
-  //   console.log('req.session', req.session)
-  //   console.log('cookie', req.session.cookie)
   //   console.log('counter', ++req.session.counter) // increment THEN log
   //   next() // needed to continue through express middleware
   // })

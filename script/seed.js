@@ -306,32 +306,47 @@ async function seed() {
     OrderBoba.create({
       orderId: 1,
       bobaId: 1,
+      name: 'Boba1',
       quantity: 2,
-      price: 5
+      price: 500,
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/1476/7310/products/Taro_slush_large.jpg?v=1478847669'
     }),
     OrderBoba.create({
       orderId: 1,
       bobaId: 2,
-      quantity: 5,
-      price: 3
+      name: 'Boba2',
+      quantity: 2,
+      price: 500,
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/1476/7310/products/Taro_slush_large.jpg?v=1478847669'
     }),
     OrderBoba.create({
       orderId: 2,
       bobaId: 3,
-      quantity: 6,
-      price: 2
+      name: 'Boba3',
+      quantity: 2,
+      price: 500,
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/1476/7310/products/Taro_slush_large.jpg?v=1478847669'
     }),
     OrderBoba.create({
       orderId: 2,
       bobaId: 4,
+      name: 'Boba4',
       quantity: 2,
-      price: 3
+      price: 500,
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/1476/7310/products/Taro_slush_large.jpg?v=1478847669'
     }),
     OrderBoba.create({
       orderId: 3,
       bobaId: 1,
-      quantity: 1,
-      price: 2
+      name: 'Boba5',
+      quantity: 2,
+      price: 500,
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/1476/7310/products/Taro_slush_large.jpg?v=1478847669'
     })
   ])
 
