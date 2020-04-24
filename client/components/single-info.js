@@ -1,6 +1,7 @@
 // import
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {removeOrderThunk} from '../store/cart'
 
 // component
 export const SingleBasic = ({boba: {id, name, imageUrl}}) => (
@@ -28,5 +29,8 @@ export const SingleCart = ({boba: {id, name, imageUrl, price, quantity}}) => (
     <img src={imageUrl} className="bobaImg" />
     <h5>Price: ${(price / 100).toFixed(2)}</h5>
     <h5>Quantity: {quantity}</h5>
+    <button type="button" onClick={removeOrderThunk(id)}>
+      Remove
+    </button>
   </div>
 )
