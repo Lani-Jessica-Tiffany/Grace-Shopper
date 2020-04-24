@@ -307,31 +307,31 @@ async function seed() {
       orderId: 1,
       bobaId: 1,
       quantity: 2,
-      price: 5
+      price: 500
     }),
     OrderBoba.create({
       orderId: 1,
       bobaId: 2,
-      quantity: 5,
-      price: 3
+      quantity: 2,
+      price: 500
     }),
     OrderBoba.create({
       orderId: 2,
       bobaId: 3,
-      quantity: 6,
-      price: 2
+      quantity: 2,
+      price: 500
     }),
     OrderBoba.create({
       orderId: 2,
       bobaId: 4,
       quantity: 2,
-      price: 3
+      price: 500
     }),
     OrderBoba.create({
       orderId: 3,
       bobaId: 1,
-      quantity: 1,
-      price: 2
+      quantity: 2,
+      price: 500
     })
   ])
 
