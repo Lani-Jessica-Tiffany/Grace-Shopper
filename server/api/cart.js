@@ -22,54 +22,11 @@ render req.session.cart
 
 // const
 const router = require('express').Router()
+const {Boba, Order, OrderBoba} = require('../db/models')
 module.exports = router
 
-//Add Boba -ADMIN FUNCTION
-// router.post('/', adminOnly, async (req, res, next) => {
-//   try {
-//     const {name, price, description, imageUrl} = req.body
-//     await Boba.create(req.body)
-//     const response = {
-//       message: 'Boba Added!',
-//       boba: {name, price, description, imageUrl}
-//     }
-//     res.json(response)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-//Update Boba -ADMIN FUNCTION
-// router.put('/:id', adminOnly, async (req, res, next) => {
-//   try {
-//     const {name, price, description, imageUrl} = req.body
-//     await Boba.update(req.body, {
-//       where: {id: req.params.id}
-//     })
-//     const response = {
-//       message: 'Boba Updated!',
-//       boba: {name, price, description, imageUrl}
-//     }
-//     res.json(response)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-//Delete Boba -ADMIN FUNCTION
-// router.delete('/:id', adminOnly, async (req, res, next) => {
-//   try {
-//     await Boba.destroy({
-//       where: {id: req.params.id}
-//     })
-//     res.status(204).end()
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-//All Cart
-router.get('/', (req, res, next) => {
+// Display all item(s) or none in cart
+router.get('/', async (req, res, next) => {
   try {
     const cart = [
       {
@@ -89,9 +46,105 @@ router.get('/', (req, res, next) => {
           'https://chloejohnston.com/wp-content/uploads/2019/07/mango-slush-bubble.png'
       }
     ]
+
+    // const cart = await OrderBoba.findOne({
+    //   where: {
+    //     bobaId: bobaId,
+
+    //   }
+    // })
+
+    if (!req.session.cart) {
+      req.session.cart = []
+    }
     req.session.cart = cart
     res.json(req.session.cart)
   } catch (err) {
     next(err)
   }
 })
+
+// Add items to cart
+router.post('/', async (req, res, next) => {
+  try {
+    if (req.user) {
+      let orderBoba = await OrderBoba.findOrCreate({
+        where: {
+          bobaId: req.body.bobaId,
+          orderId: req.body.orderId
+        },
+        defaults: {
+          quantity: req.body.quantity
+        }
+      })
+
+      //1 ) first see if there is unpurchsaed cart,find or create it
+      let [order] = await Order.findOrCreate({
+        where: {
+          userId: req.user.id,
+          status: false
+        }
+      })
+
+      //get the orderId
+      let orderId = order.id
+
+      //find or create specific item in cart
+      const [item, wasCreated] = await OrderBoba.findOrCreate({
+        where: {
+          orderId: orderId,
+          bobaId: req.body.bobaId
+        },
+        default: {
+          quantity: req.body.quantity //dont know syntax for def
+        }
+      })
+
+      let currentQuantity = item.quantity
+
+      //if cart exists, then update the quantity of the item as current quantity + added quantity
+      if (!wasCreated)
+        await OrderBoba.update(
+          {
+            quantity: currentQuantity + req.body.quantity
+          },
+          {
+            where: {
+              orderId: orderId,
+              bobaId: req.body.bobaId
+            }
+          }
+        )
+
+      //writingo ut my thoughts
+      /*
+      if current item in cart exists, then update quantity
+      if does not exist, cr
+      is there a sequelize method that tells me whethe something exists or not
+      so just need this above
+      */
+      console.log('BOOOOOOBA', orderBoba)
+      res.json(orderBoba)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Edit items in cart - /cart/:order/:boba
+// router.put('/:order', async (req, res, next) => {
+//   try {
+
+//   } catch (err) {
+//     next(err);
+//   }
+// })
+
+// Delete items in cart - /cart/:order
+// router.delete('/:order', (req, res, next) => {
+//   try {
+
+//   } catch (err) {
+//     next(err);
+//   }
+// })
