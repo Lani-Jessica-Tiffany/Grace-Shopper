@@ -5,6 +5,10 @@ Guest experience
 - dummy data is set up so that you simply need to get/put/post to http://localhost:8080/api/cart
   with an empty body
 
+User experience
+- need Jess's help for that; used Chrome as a hack for now... VVVV
+
+README for Chrome
 User experience (Logged In)
 - Log in with whoever has userId = 1 in your database since its the best seeded for all tables
 - Note that login with userId = 1 may change when you reseed your database
