@@ -140,11 +140,24 @@ router.post('/', async (req, res, next) => {
 //   }
 // })
 
-// Delete items in cart - /cart/:order
-// router.delete('/:order', (req, res, next) => {
-//   try {
-
-//   } catch (err) {
-//     next(err);
-//   }
-// })
+// Delete items in cart
+router.delete('/', async (req, res, next) => {
+  try {
+    // user authentication
+    if (req.user) {
+      // find an item in the cart
+      const findItem = req.session.cart.find(
+        item => item.bobaId === req.body.bobaId
+      )
+      // remove item from
+      await findItem.destroy({
+        where: {
+          bobaId: req.body.bobaId
+        }
+      })
+    }
+    res.status(204).end()
+  } catch (err) {
+    next(err)
+  }
+})
