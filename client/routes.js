@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Login,
@@ -36,8 +36,12 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            {/* Route only available if admin */}
-            {this.props.admin && <Route path="/users" component={UserFront} />}
+            {/* Only admins can see users, others redirected to home */}
+            {this.props.admin ? (
+              <Route path="/users" component={UserFront} />
+            ) : (
+              <Redirect to="/home" />
+            )}
           </Switch>
         )}
         <Route path="/cart" component={Cart} />

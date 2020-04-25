@@ -11,8 +11,11 @@ class UserFront extends Component {
   }
 
   render() {
-    if (!this.props.userFront) return <h1>Loading</h1>
-    return <UserFrontAgg {...this.props} />
+    return this.props.userFront ? (
+      <UserFrontAgg {...this.props} />
+    ) : (
+      <h1>Loading</h1>
+    )
   }
 }
 
