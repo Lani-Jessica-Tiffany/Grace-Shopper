@@ -24,7 +24,7 @@ const initialState = {
 const userFront = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL:
-      return {...state, all: action.all}
+      return {...state, all: action.users}
     default:
       return state
   }
