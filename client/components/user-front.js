@@ -11,13 +11,15 @@ class UserFront extends Component {
   }
 
   render() {
-    return <UserFrontAgg {...this.props} />
+    if (this.props.admin) return <UserFrontAgg {...this.props} />
+    return <h1>Not allowed</h1>
   }
 }
 
 // connect
 const mapState = state => ({
-  userFront: state.userFront.all
+  userFront: state.userFront.all,
+  admin: state.user.isAdmin
 })
 
 const mapDispatch = dispatch => ({

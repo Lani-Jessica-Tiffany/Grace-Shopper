@@ -12,6 +12,7 @@ const adminOnly = (req, res, next) => {
   }
   next()
 }
+
 // routes /api/users
 // GET ALL (ADMIN)
 router.get('/', adminOnly, async (req, res, next) => {

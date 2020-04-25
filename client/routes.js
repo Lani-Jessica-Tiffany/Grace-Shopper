@@ -36,8 +36,8 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            {/* NEED TO ADD only show for admins */}
-            <Route path="/users" component={UserFront} />
+            {/* Route only available if admin */}
+            {this.props.admin && <Route path="/users" component={UserFront} />}
           </Switch>
         )}
         <Route path="/cart" component={Cart} />
@@ -55,7 +55,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    admin: state.user.isAdmin
   }
 }
 
