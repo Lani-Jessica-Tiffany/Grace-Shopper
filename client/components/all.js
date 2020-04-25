@@ -10,6 +10,7 @@ class All extends Component {
     this.props.dispatchGetAllThunk()
   }
   render() {
+    if (!this.props.bobas) return <h1>Loading</h1>
     return <AllAgg {...this.props} />
   }
 }
