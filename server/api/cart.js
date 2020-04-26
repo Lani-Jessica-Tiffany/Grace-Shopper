@@ -113,8 +113,10 @@ router.post('/', async (req, res, next) => {
       // find item with same bobaId as req.body
       const findItem = cart.find(item => item.bobaId === bobaId)
       // if item already exists, then update item quantity
-      if (findItem) findItem.quantity += quantity
-      else
+      if (findItem) {
+        findItem.quantity += quantity
+        findItem.save()
+      } else
         // else add item to cart
         cart.push(req.body)
       res.json(findItem || req.body)
@@ -162,6 +164,20 @@ router.put('/', async (req, res, next) => {
       findItem.quantity = quantity
       res.json(findItem)
     }
+  } catch (err) {
+    next(err)
+  }
+})
+
+// DELETE api/cart/:orderId
+router.delete('/:orderId', async (req, res, next) => {
+  try {
+    await OrderBoba.destroy({
+      where: {
+        orderId: req.params.orderId
+      }
+    })
+    res.status(204).send()
   } catch (err) {
     next(err)
   }

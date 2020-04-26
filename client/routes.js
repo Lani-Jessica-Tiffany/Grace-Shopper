@@ -26,28 +26,31 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route exact path="/boba" component={All} />
-        <Route path="/boba/:id" component={Single} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-            {/* Only admins can see users, others redirected to home */}
-            {this.props.admin ? (
-              <Route path="/users" component={UserFront} />
-            ) : (
-              <Redirect to="/home" />
-            )}
-          </Switch>
-        )}
-        <Route path="/cart" component={Cart} />
-        {/* Displays our Main component as a fallback */}
-        <Route component={Main} />
-      </Switch>
+      // Display all routes
+      isLoggedIn ? (
+        <Switch>
+          {/* Routes placed here are available to all visitors */}
+          <Route exact path="/boba" component={All} />
+          <Route path="/boba/:id" component={Single} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          {/* Routes placed here are only available after logging in */}
+          <Route path="/home" component={UserHome} />
+          <Route path="/cart" component={Cart} />
+          {/* Displays our Main component as a fallback */}
+          <Route component={Main} />
+        </Switch>
+      ) : (
+        // Display public routes
+        <Switch>
+          <Route exact path="/boba" component={All} />
+          <Route path="/boba/:id" component={Single} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/cart" component={Cart} />
+          <Route component={Main} />
+        </Switch>
+      )
     )
   }
 }

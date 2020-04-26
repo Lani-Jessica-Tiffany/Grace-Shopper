@@ -1,6 +1,7 @@
 // import
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {removeOrderThunk} from '../store/cart'
 
 // component
 export const SingleBasic = ({boba: {id, name, imageUrl}}) => (
