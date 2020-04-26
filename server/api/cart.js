@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
       // find or create user's unpurchased order
       const [order, orderCreated] = await Order.findOrCreate({
         where: {
-          userId: req.user.id,
+          userId: 1,
           status: false
         }
       })
@@ -113,8 +113,10 @@ router.post('/', async (req, res, next) => {
       // find item with same bobaId as req.body
       const findItem = cart.find(item => item.bobaId === bobaId)
       // if item already exists, then update item quantity
-      if (findItem) findItem.quantity += quantity
-      else
+      if (findItem) {
+        findItem.quantity += quantity
+        findItem.save()
+      } else
         // else add item to cart
         cart.push(req.body)
       res.json(findItem || req.body)
@@ -167,22 +169,15 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.delete('/', async (req, res, next) => {
+// DELETE api/cart/:orderId
+router.delete('/:orderId', async (req, res, next) => {
   try {
-    // user authentication
-    if (req.user) {
-      // find an item in the cart
-      const findItem = req.session.cart.find(
-        item => item.bobaId === req.body.bobaId
-      )
-      // remove item from
-      await findItem.destroy({
-        where: {
-          bobaId: req.body.bobaId
-        }
-      })
-    }
-    res.status(204).end()
+    await OrderBoba.destroy({
+      where: {
+        orderId: req.params.orderId
+      }
+    })
+    res.status(204).send()
   } catch (err) {
     next(err)
   }
