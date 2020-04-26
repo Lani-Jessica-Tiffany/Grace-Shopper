@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
       // find or create user's unpurchased order
       const [order, orderCreated] = await Order.findOrCreate({
         where: {
-          userId: 1,
+          userId: req.user.id,
           status: false
         }
       })
