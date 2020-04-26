@@ -1,7 +1,33 @@
+// require + exports
 const router = require('express').Router()
 const {User} = require('../db/models')
-const {adminOnly} = require('./boba')
 module.exports = router
+
+// middleware
+const adminOnly = (req, res, next) => {
+  if (!req.user.isAdmin) {
+    const err = new Error('Not Allowed')
+    err.status = 401
+    return next(err)
+  }
+  next()
+}
+
+// routes /api/users
+// GET ALL (ADMIN)
+router.get('/', adminOnly, async (req, res, next) => {
+  try {
+    const users = await User.findAll({
+      // explicitly select only the id and email fields - even though
+      // users' passwords are encrypted, it won't help if we just
+      // send everything to anyone who asks!
+      attributes: ['id', 'email', 'firstName', 'lastName']
+    })
+    res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
 
 //CHECKING ADMIN IS NOT WORKING YET
 //check the user
@@ -59,22 +85,6 @@ router.delete('/:id', async (req, res, next) => {
       where: {id: req.params.id}
     })
     res.status(204).end()
-  } catch (err) {
-    next(err)
-  }
-})
-
-// All users -ADMIN FUNCTION
-router.get('/', async (req, res, next) => {
-  console.log(req.user, 'USER')
-  try {
-    const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email']
-    })
-    res.json(users)
   } catch (err) {
     next(err)
   }
