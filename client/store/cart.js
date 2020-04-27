@@ -1,6 +1,5 @@
 // action type
 const GET_ALL = 'GET_ALL'
-
 const REMOVE_ORDER = 'REMOVE_ORDER'
 
 // action creator

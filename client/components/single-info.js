@@ -23,6 +23,7 @@ export const SingleDetail = ({boba: {price, description}}) => {
   )
 }
 
+//reference but need to make stateful, so create stateful single cart item
 export const SingleCart = ({
   boba: {bobaId, name, imageUrl, price, quantity}
 }) => {
