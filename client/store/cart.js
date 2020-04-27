@@ -37,13 +37,13 @@ export const getAllThunk = () => async (dispatch, getState, {axios}) => {
   }
 }
 
-export const addOrderThunk = (orderId, bobaId) => async (
+export const addOrderThunk = (bobaId, quantity) => async (
   dispatch,
   getState,
   {axios}
 ) => {
   try {
-    const {data} = await axios.post('/api/cart', {orderId, bobaId})
+    const {data} = await axios.post('/api/cart', {bobaId, quantity})
     dispatch(addOrder(data))
   } catch (err) {
     console.log(err)
