@@ -12,8 +12,8 @@ const OrderBoba = require('./order-boba')
 
 User.hasMany(Order)
 Order.belongsTo(User) // orderId, userId
-Order.belongsToMany(Boba, {through: 'orderBoba'})
-Boba.belongsToMany(Order, {through: 'orderBoba'})
+Order.belongsToMany(Boba, {through: OrderBoba})
+Boba.belongsToMany(Order, {through: OrderBoba})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

@@ -63,13 +63,14 @@ export const updateOrderThunk = (orderId, bobaId, quantity) => async (
   }
 }
 
-export const removeOrderThunk = (orderId, bobaId) => async (
+export const removeOrderThunk = bobaId => async (
   dispatch,
   getState,
   {axios}
 ) => {
   try {
-    const {data} = await axios.delete('/api/cart', {orderId, bobaId})
+    const {data} = await axios.delete('/api/cart', {bobaId})
+    console.log('data', data)
     dispatch(removeOrder(data))
   } catch (err) {
     console.log(err)
@@ -104,7 +105,7 @@ const cart = (state = initialState, action) => {
     case REMOVE_ORDER:
       return {
         ...state,
-        all: state.all.filter(order => order.id !== action.order)
+        all: state.all.bobas.filter(boba => boba.id !== action.boba)
       }
     default:
       return state

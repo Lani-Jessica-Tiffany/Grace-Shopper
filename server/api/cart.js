@@ -16,7 +16,7 @@ User experience (Logged In)
 
 // const
 const router = require('express').Router()
-const {Order, OrderBoba} = require('../db/models')
+const {Order, OrderBoba, Boba} = require('../db/models')
 module.exports = router
 
 //GET api/cart
@@ -26,26 +26,15 @@ router.get('/', async (req, res, next) => {
     // user experience
     if (req.user) {
       // find or create user's unpurchased order
-      const [order, orderCreated] = await Order.findOrCreate({
+      const [order] = await Order.findOrCreate({
         where: {
           userId: req.user.id,
           status: false
-        }
+        },
+        include: [{model: Boba}]
       })
-      // orderCreated? new cart created : access old cart
-      if (orderCreated) {
-        // component needs to reflect this
-        res.json('Please add items to your cart.')
-      } else {
-        const orderId = order.id
-        // find items in cart tied to orderId
-        const cart = await OrderBoba.findAll({
-          where: {
-            orderId: orderId
-          }
-        })
-        res.json(cart)
-      }
+      req.session.orderId = order.id
+      res.json(order)
     } else {
       // guest experience
       //  initialize cart if it does not exist
@@ -62,15 +51,17 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     // fake data (for now)
-    req.body = {
+    /* req.body = {
       bobaId: 3,
       name: 'Almond Milk Tea',
       price: 300,
       quantity: 2,
       imageUrl:
         'https://chloejohnston.com/wp-content/uploads/2019/07/mango-slush-bubble.png'
-    }
-    const {bobaId, name, price, quantity, imageUrl} = req.body
+    } */
+    const itemFromDb = await Boba.findByPk(req.body.bobaId)
+    const {name, price, imageUrl} = itemFromDb
+    const {bobaId, quantity} = req.body
     //user experience
     if (req.user) {
       /*
@@ -169,15 +160,36 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-// DELETE api/cart/:orderId
-router.delete('/:orderId', async (req, res, next) => {
+//DELETE boba from the cart api/cart
+router.delete('/', async (req, res, next) => {
   try {
-    await OrderBoba.destroy({
-      where: {
-        orderId: req.params.orderId
+    //find the order
+    const {bobaId, orderId} = req.body
+    //user experience
+    if (req.user) {
+      // delete item tied to order
+      await OrderBoba.destroy({
+        where: {
+          bobaId: req.session.bobaId,
+          orderId: req.session.orderId
+        }
+      })
+      //respond with status
+      res.status(204).send()
+    } else if (req.session.cart) {
+      // guest experience
+      //  initialize cart if it does not exist
+      let cart = req.session.cart
+      // find item with same bobaId as req.body
+      const findItem = cart.find(item => item.bobaId === bobaId)
+      if (findItem) {
+        findItem.delete()
+        res.json(findItem)
+      } else {
+        // else not found
+        res.json(findItem || req.body)
       }
-    })
-    res.status(204).send()
+    }
   } catch (err) {
     next(err)
   }

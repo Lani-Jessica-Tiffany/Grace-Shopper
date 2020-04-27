@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Login,
@@ -23,19 +23,19 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, admin} = this.props
 
     return (
       // Display all routes
       isLoggedIn ? (
         <Switch>
-          {/* Routes placed here are available to all visitors */}
+          {/* Routes placed here are only available after logging in */}
           <Route exact path="/boba" component={All} />
           <Route path="/boba/:id" component={Single} />
           <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          {/* Routes placed here are only available after logging in */}
           <Route path="/home" component={UserHome} />
+          {/* Routes placed here are only available if user is admin */}
+          {admin && <Route path="/users" component={UserFront} />}
           <Route path="/cart" component={Cart} />
           {/* Displays our Main component as a fallback */}
           <Route component={Main} />
