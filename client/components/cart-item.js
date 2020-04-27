@@ -1,21 +1,28 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {removeOrderThunk} from '../store/cart'
+import React from 'react'
+// import {connect} from 'react-redux'
+// import {Link} from 'react-router-dom'
+// import {removeOrderThunk} from '../store/cart'
 //add to update item quantity, remove item
 
 export class CartItem extends React.Component {
   constructor(props) {
     super(props)
+    this.updateOrder = this.updateOrder.bind(this)
     this.removeOrder = this.removeOrder.bind(this)
+  }
+
+  updateOrder(id, qty) {
+    this.props.update(id, qty)
   }
 
   removeOrder(id) {
     this.props.delete(id)
   }
   render() {
-    const {id, name, imageUrl, price, quantity} = this.props
-    let realPrice = String(price)
+    const {id, name, imageUrl, price} = this.props
+    const {quantity} = this.props.orderBoba
+
+    let realPrice = String(price * quantity)
     realPrice =
       realPrice.slice(0, realPrice.length - 2) +
       '.' +
@@ -34,9 +41,3 @@ export class CartItem extends React.Component {
     )
   }
 }
-
-// const mapDispatchtoProps = dispatch => ({
-//   dispatchRemoveOrderThunk: id => dispatch(removeOrderThunk(id))
-// })
-
-// export default connect(null, mapDispatchtoProps)(CartItem)
