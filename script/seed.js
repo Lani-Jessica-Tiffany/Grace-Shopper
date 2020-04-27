@@ -272,7 +272,7 @@ async function seed() {
     }),
     Order.create({
       userId: 1,
-      purchased: false
+      purchased: true
     }),
     Order.create({
       userId: 2,
