@@ -50,13 +50,13 @@ export const addOrderThunk = (bobaId, quantity) => async (
   }
 }
 
-export const updateOrderThunk = (orderId, bobaId, quantity) => async (
+export const updateOrderThunk = (bobaId, quantity) => async (
   dispatch,
   getState,
   {axios}
 ) => {
   try {
-    const {data} = await axios.put('/api/cart', {orderId, bobaId, quantity})
+    const {data} = await axios.put('/api/cart', {bobaId, quantity})
     dispatch(updateOrder(data))
   } catch (err) {
     console.log(err)

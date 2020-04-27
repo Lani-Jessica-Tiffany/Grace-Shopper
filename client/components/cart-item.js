@@ -7,15 +7,22 @@ import React, {Component} from 'react'
 export default class CartItem extends Component {
   constructor(props) {
     super(props)
+    this.updateOrder = this.updateOrder.bind(this)
     this.removeOrder = this.removeOrder.bind(this)
+  }
+
+  updateOrder(id, qty) {
+    this.props.update(id, qty)
   }
 
   removeOrder(id) {
     this.props.delete(id)
   }
   render() {
-    const {id, name, imageUrl, price, quantity} = this.props
-    let realPrice = String(price)
+    const {id, name, imageUrl, price} = this.props
+    const {quantity} = this.props.orderBoba
+
+    let realPrice = String(price * quantity)
     realPrice =
       realPrice.slice(0, realPrice.length - 2) +
       '.' +
