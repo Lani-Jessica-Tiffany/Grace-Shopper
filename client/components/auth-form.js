@@ -10,38 +10,70 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
+    <div className="text-center">
       <form onSubmit={handleSubmit} name={name}>
         {name === 'signup' && (
           <div>
-            <div>
-              <label htmlFor="firstName">
-                <small>First Name</small>
-              </label>
-              <input name="firstName" type="text" />
+            <div className="row justify-content-center">
+              <div className="col">
+                <label htmlFor="firstName">
+                  <small className="text-nowrap">First Name</small>
+                </label>
+                <input
+                  className="form-control"
+                  name="firstName"
+                  type="text"
+                  placeholder="First Name"
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor="lastName">
-                <small>Last Name</small>
-              </label>
-              <input name="lastName" type="text" />
+            <div className="row justify-content-center">
+              <div className="col">
+                <label htmlFor="lastName">
+                  <small>Last Name</small>
+                </label>
+                <input
+                  className="form-control"
+                  name="lastName"
+                  type="text"
+                  placeholder="Last Name"
+                />
+              </div>
             </div>
           </div>
         )}
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+        <div className="row justify-content-center">
+          <div className="col-sm-6">
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input
+              className="form-control"
+              name="email"
+              type="text"
+              placeholder="Email"
+            />
+          </div>
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
+        <div className="row justify-content-center">
+          <div className="col-sm-6">
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input
+              className="form-control"
+              name="password"
+              type="password"
+              placeholder="Password"
+            />
+          </div>
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
+        <div className="row">
+          <div className="col">
+            <button type="submit" className="btn btn-primary">
+              {displayName}
+            </button>
+          </div>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
