@@ -1,13 +1,10 @@
 /*
 README for Postman
-
 Guest experience
 - dummy data is set up so that you simply need to get/put/post to http://localhost:8080/api/cart
   with an empty body
-
 User experience
 - need Jess's help for that; used Chrome as a hack for now... VVVV
-
 README for Chrome
 User experience (Logged In)
 - Log in with whoever has userId = 1 in your database since its the best seeded for all tables
@@ -33,7 +30,9 @@ router.get('/', async (req, res, next) => {
         },
         include: [{model: Boba}]
       })
+      // store orderId info for other reqs (e.g. delete)
       req.session.orderId = order.id
+      console.log('alsdfjkalskdfjasldf', req.session.orderId)
       res.json(order)
     } else {
       // guest experience
@@ -161,34 +160,38 @@ router.put('/', async (req, res, next) => {
 })
 
 //DELETE boba from the cart api/cart
-router.delete('/', async (req, res, next) => {
+router.delete('/:bobaId', async (req, res, next) => {
   try {
-    //find the order
-    const {bobaId, orderId} = req.body
     //user experience
     if (req.user) {
       // delete item tied to order
       await OrderBoba.destroy({
         where: {
-          bobaId: req.session.bobaId,
-          orderId: req.session.orderId
+          orderId: req.session.orderId,
+          bobaId: req.params.bobaId
         }
       })
+      const order = await Order.findAll({
+        where: {
+          id: req.session.orderId
+        },
+        include: [{model: Boba}]
+      })
       //respond with status
-      res.status(204).send()
-    } else if (req.session.cart) {
-      // guest experience
-      //  initialize cart if it does not exist
+      console.log('orderrrrrrr', order)
+      res.status(200).json(order[0])
+    } else {
+      // guest experience - i.e. no req.user
+      // cart already exists if you can access delete route
       let cart = req.session.cart
-      // find item with same bobaId as req.body
-      const findItem = cart.find(item => item.bobaId === bobaId)
-      if (findItem) {
-        findItem.delete()
-        res.json(findItem)
-      } else {
-        // else not found
-        res.json(findItem || req.body)
+      // remove selected boba item from cart
+      const remove = (item, i) => {
+        if (item.bobaId === req.params.bobaId) {
+          cart.slice(cart.indexOf(i), 1)
+        }
       }
+      cart.forEach(remove)
+      res.send(req.session.cart)
     }
   } catch (err) {
     next(err)

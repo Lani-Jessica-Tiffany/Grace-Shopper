@@ -21,9 +21,9 @@ const updateOrder = (order, quantity) => ({
   quantity
 })
 
-const removeOrder = order => ({
+const removeOrder = bobaId => ({
   type: REMOVE_ORDER,
-  order
+  bobaId
 })
 
 // thunk creator
@@ -37,13 +37,13 @@ export const getAllThunk = () => async (dispatch, getState, {axios}) => {
   }
 }
 
-export const addOrderThunk = (orderId, bobaId) => async (
+export const addOrderThunk = (bobaId, quantity) => async (
   dispatch,
   getState,
   {axios}
 ) => {
   try {
-    const {data} = await axios.post('/api/cart', {orderId, bobaId})
+    const {data} = await axios.post('/api/cart', {bobaId, quantity})
     dispatch(addOrder(data))
   } catch (err) {
     console.log(err)
@@ -69,8 +69,7 @@ export const removeOrderThunk = bobaId => async (
   {axios}
 ) => {
   try {
-    const {data} = await axios.delete('/api/cart', {bobaId})
-    console.log('data', data)
+    const {data} = await axios.delete(`/api/cart/${bobaId}`)
     dispatch(removeOrder(data))
   } catch (err) {
     console.log(err)
@@ -105,7 +104,8 @@ const cart = (state = initialState, action) => {
     case REMOVE_ORDER:
       return {
         ...state,
-        all: state.all.bobas.filter(boba => boba.id !== action.boba)
+        all: action.bobaId
+        // all: state.all.bobas.filter(boba => boba.id !== action.bobaId)
       }
     default:
       return state
