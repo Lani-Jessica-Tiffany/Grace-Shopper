@@ -272,7 +272,7 @@ async function seed() {
     }),
     Order.create({
       userId: 1,
-      purchased: false
+      purchased: true
     }),
     Order.create({
       userId: 2,
@@ -315,6 +315,31 @@ async function seed() {
       quantity: 2,
       price: 500
     }),
+    OrderBoba.create({
+      orderId: 1,
+      bobaId: 3,
+      quantity: 2,
+      price: 500
+    }),
+    OrderBoba.create({
+      orderId: 1,
+      bobaId: 4,
+      quantity: 2,
+      price: 500
+    }),
+    OrderBoba.create({
+      orderId: 1,
+      bobaId: 5,
+      quantity: 2,
+      price: 500
+    }),
+    OrderBoba.create({
+      orderId: 1,
+      bobaId: 6,
+      quantity: 2,
+      price: 500
+    }),
+
     OrderBoba.create({
       orderId: 2,
       bobaId: 3,

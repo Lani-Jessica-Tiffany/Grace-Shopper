@@ -1,9 +1,9 @@
 // import
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getAllThunk} from '../store/cart'
-import CartAgg from './cart-agg'
-import {CartItem} from './cart-item'
+import {getAllThunk, removeOrderThunk} from '../store/cart'
+// import CartAgg from './cart-agg'
+import CartItem from './cart-item'
 
 // component
 class Cart extends Component {
@@ -15,7 +15,17 @@ class Cart extends Component {
     if (!bobas || !bobas.length) {
       return <h1>Loading</h1>
     }
-    return <div>{bobas.map(boba => <CartItem {...boba} key={boba.id} />)}</div>
+    return (
+      <div>
+        {bobas.map(boba => (
+          <CartItem
+            {...boba}
+            delete={this.props.dispatchRemoveOrderThunk}
+            key={boba.id}
+          />
+        ))}
+      </div>
+    )
   }
 }
 
@@ -31,7 +41,8 @@ const mapStatetoProps = state => {
 }) */
 
 const mapDispatchtoProps = dispatch => ({
-  dispatchGetAllThunk: () => dispatch(getAllThunk())
+  dispatchGetAllThunk: () => dispatch(getAllThunk()),
+  dispatchRemoveOrderThunk: id => dispatch(removeOrderThunk(id))
 })
 
 // export
