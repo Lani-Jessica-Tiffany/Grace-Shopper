@@ -30,6 +30,9 @@ router.get('/', async (req, res, next) => {
         },
         include: [{model: Boba}]
       })
+      // store orderId info for other reqs (e.g. delete)
+      req.session.orderId = order.id
+      console.log('alsdfjkalskdfjasldf', req.session.orderId)
       res.json(order)
     } else {
       // guest experience
@@ -157,21 +160,25 @@ router.put('/', async (req, res, next) => {
 })
 
 //DELETE boba from the cart api/cart
+// router.delete('/:bobaId', async (req, res, next) => {
 router.delete('/', async (req, res, next) => {
   try {
-    //find the order
-    const {bobaId, orderId} = req.body
     //user experience
+    console.log('req.body.dataaaaa', req.body.data)
     if (req.user) {
       // delete item tied to order
-      const item = await OrderBoba.destroy({
+      await OrderBoba.destroy({
         where: {
-          orderId,
-          bobaId
+          orderId: req.session.orderId,
+          // bobaId: req.params.bobaId,
+          bobaId: req.body.data
         }
       })
       //respond with status
-      res.status(204).send()
+      // ASSUME REQ.BODY.DATA === bobaId
+      res.status(200).send(req.body.data)
+      // res.status(200).send(req.params.bobaId)
+      // res.redirect('/cart')
     } else if (req.session.cart) {
       // guest experience
       //  initialize cart if it does not exist
@@ -186,20 +193,6 @@ router.delete('/', async (req, res, next) => {
         res.json(findItem || req.body)
       }
     }
-  } catch (err) {
-    next(err)
-  }
-})
-
-// DELETE api/cart/:orderId
-router.delete('/:orderId', async (req, res, next) => {
-  try {
-    await OrderBoba.destroy({
-      where: {
-        orderId: req.params.orderId
-      }
-    })
-    res.status(204).send()
   } catch (err) {
     next(err)
   }
