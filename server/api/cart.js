@@ -160,39 +160,39 @@ router.put('/', async (req, res, next) => {
 })
 
 //DELETE boba from the cart api/cart
-router.delete('/', async (req, res, next) => {
-  try {
-    //find the order
-    const {bobaId, orderId} = req.body
-    //user experience
-    if (req.user) {
-      // delete item tied to order
-      const item = await OrderBoba.destroy({
-        where: {
-          orderId,
-          bobaId
-        }
-      })
-      //respond with status
-      res.status(204).send()
-    } else if (req.session.cart) {
-      // guest experience
-      //  initialize cart if it does not exist
-      let cart = req.session.cart
-      // find item with same bobaId as req.body
-      const findItem = cart.find(item => item.bobaId === bobaId)
-      if (findItem) {
-        findItem.delete()
-        res.json(findItem)
-      } else {
-        // else not found
-        res.json(findItem || req.body)
-      }
-    }
-  } catch (err) {
-    next(err)
-  }
-})
+// router.delete('/', async (req, res, next) => {
+//   try {
+//     //find the order
+//     const {bobaId, orderId} = req.body
+//     //user experience
+//     if (req.user) {
+//       // delete item tied to order
+//       const item = await OrderBoba.destroy({
+//         where: {
+//           orderId,
+//           bobaId
+//         }
+//       })
+//       //respond with status
+//       res.status(204).send()
+//     } else if (req.session.cart) {
+//       // guest experience
+//       //  initialize cart if it does not exist
+//       let cart = req.session.cart
+//       // find item with same bobaId as req.body
+//       const findItem = cart.find(item => item.bobaId === bobaId)
+//       if (findItem) {
+//         findItem.delete()
+//         res.json(findItem)
+//       } else {
+//         // else not found
+//         res.json(findItem || req.body)
+//       }
+//     }
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 // DELETE api/cart/:orderId
 router.delete('/:orderId', async (req, res, next) => {
@@ -202,7 +202,7 @@ router.delete('/:orderId', async (req, res, next) => {
         orderId: req.params.orderId
       }
     })
-    res.status(204).send()
+    res.status(204).send(req.params.orderId)
   } catch (err) {
     next(err)
   }

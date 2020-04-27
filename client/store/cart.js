@@ -48,7 +48,11 @@ const cart = (state = initialState, action) => {
     case GET_ALL:
       return {...state, all: action.all}
     case REMOVE_ORDER:
-      return state.all.filter(boba => boba.id !== action.boba)
+      console.log(action.order)
+      return {
+        ...state,
+        all: state.all.filter(boba => boba.id !== action.order)
+      }
     default:
       return state
   }
