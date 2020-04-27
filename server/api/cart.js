@@ -166,12 +166,6 @@ router.delete('/', async (req, res, next) => {
     const {bobaId, orderId} = req.body
     //user experience
     if (req.user) {
-      //find order might not need
-      const userOrder = await Order.findByPk({
-        where: {
-          userId: req.user.id
-        }
-      })
       // delete item tied to order
       const item = await OrderBoba.destroy({
         where: {
@@ -179,8 +173,8 @@ router.delete('/', async (req, res, next) => {
           bobaId
         }
       })
-      //respond with item destroyed?
-      res.json(item)
+      //respond with status
+      res.status(204).send()
     } else if (req.session.cart) {
       // guest experience
       //  initialize cart if it does not exist
