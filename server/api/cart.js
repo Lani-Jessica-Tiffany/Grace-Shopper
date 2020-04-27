@@ -180,19 +180,18 @@ router.delete('/:bobaId', async (req, res, next) => {
       //respond with status
       console.log('orderrrrrrr', order)
       res.status(200).json(order[0])
-    } else if (req.session.cart) {
-      // guest experience
-      //  initialize cart if it does not exist
+    } else {
+      // guest experience - i.e. no req.user
+      // cart already exists if you can access delete route
       let cart = req.session.cart
-      // find item with same bobaId as req.body
-      const findItem = cart.find(item => item.bobaId === bobaId)
-      if (findItem) {
-        findItem.delete()
-        res.json(findItem)
-      } else {
-        // else not found
-        res.json(findItem || req.body)
+      // remove selected boba item from cart
+      const remove = (item, i) => {
+        if (item.bobaId === req.params.bobaId) {
+          cart.slice(cart.indexOf(i), 1)
+        }
       }
+      cart.forEach(remove)
+      res.send(req.session.cart)
     }
   } catch (err) {
     next(err)
