@@ -23,22 +23,22 @@ router.get('/', async (req, res, next) => {
     // user experience
     if (req.user) {
       // find or create user's unpurchased order
-      const [order] = await Order.findOrCreate({
+      let [order] = await Order.findOrCreate({
         where: {
           userId: req.user.id,
           status: false
         },
         include: [{model: Boba}]
       })
+
       // store orderId info for other reqs (e.g. delete)
       req.session.orderId = order.id
-      console.log('alsdfjkalskdfjasldf', req.session.orderId)
       res.json(order)
     } else {
       // guest experience
       //  initialize cart if it does not exist
-      if (!req.session.cart) req.session.cart = []
-      res.json(req.session.cart)
+      const cart = req.session.cart ? req.session.cart : []
+      res.json({bobas: cart})
     }
   } catch (err) {
     next(err)
@@ -93,8 +93,13 @@ router.post('/', async (req, res, next) => {
         }
       })
       // if item already exists, then update item quantity
-      if (!itemCreated) item.quantity += quantity
-      res.json(item)
+      if (!itemCreated) {
+        //update quantity
+        await item.update({
+          quantity: item.quantity + quantity
+        })
+        res.json(item)
+      }
     } else {
       // guest experience
       //  initialize cart if it does not exist
@@ -105,11 +110,19 @@ router.post('/', async (req, res, next) => {
       // if item already exists, then update item quantity
       if (findItem) {
         findItem.quantity += quantity
-        findItem.save()
-      } else
+        res.json(findItem)
+      } else {
         // else add item to cart
-        cart.push(req.body)
-      res.json(findItem || req.body)
+        const info = {
+          id: bobaId,
+          name,
+          price,
+          quantity,
+          imageUrl
+        }
+        cart.push(info)
+        res.json(info)
+      }
     }
   } catch (err) {
     next(err)

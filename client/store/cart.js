@@ -5,14 +5,14 @@ const UPDATE_ORDER = 'UPDATE_ORDER'
 const REMOVE_ORDER = 'REMOVE_ORDER'
 
 // action creator
-const getAll = all => ({
+const getAll = cart => ({
   type: GET_ALL,
-  all
+  cart
 })
 
-const addOrder = order => ({
+const addOrder = cart => ({
   type: ADD_ORDER,
-  order
+  cart
 })
 
 const updateOrder = (order, quantity) => ({
@@ -78,17 +78,24 @@ export const removeOrderThunk = bobaId => async (
 
 // state
 const initialState = {
-  all: []
+  cart: []
 }
 
 // reducer
 const cart = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL:
-      return {...state, all: action.all}
+      action.cart &&
+        action.cart.bobas &&
+        action.cart.bobas.map((each, i) => {
+          if (each.orderBoba) {
+            action.cart.bobas[i].quantity = each.orderBoba.quantity
+          }
+        })
+      return {...state, cart: action.cart}
 
     case ADD_ORDER:
-      return {...state, all: [...state.all, action.all]}
+      return {...state, cart: action.cart}
 
     case UPDATE_ORDER:
       const newState = all.map(order => {
@@ -99,13 +106,13 @@ const cart = (state = initialState, action) => {
           }
         }
       })
-      return {...state, all: newState}
+      return {...state, cart: newState}
 
     case REMOVE_ORDER:
       return {
         ...state,
-        all: action.bobaId
-        // all: state.all.bobas.filter(boba => boba.id !== action.bobaId)
+        cart: action.bobaId
+        // cart: state.cart.bobas.filter(boba => boba.id !== action.bobaId)
       }
     default:
       return state
