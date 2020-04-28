@@ -1,13 +1,7 @@
 // import
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {
-  getAllThunk,
-  removeOrderThunk,
-  addQtyThunk,
-  subtractQtyThunk
-} from '../store/cart'
-// import CartAgg from './cart-agg'
+import {getAllThunk, removeOrderThunk, updateQtyThunk} from '../store/cart'
 import CartItem from './cart-item'
 
 // component
@@ -16,7 +10,6 @@ class Cart extends Component {
     this.props.dispatchGetAllThunk()
   }
   render() {
-    // console.log(this.props, 'BOBAS FROM CART')
     if (!this.props.cart || !this.props.cart.bobas) {
       return <h1>Add something to your cart!</h1>
     }
@@ -27,8 +20,7 @@ class Cart extends Component {
           <CartItem
             {...boba}
             delete={this.props.dispatchRemoveOrderThunk}
-            addQty={this.props.dispatchAddQtyThunk}
-            subtractQty={this.props.dispatchSubtractQtyThunk}
+            update={this.props.dispatchUpdateQtyThunk}
             key={boba.id}
           />
         ))}
@@ -39,7 +31,6 @@ class Cart extends Component {
 
 // connect
 const mapStatetoProps = state => {
-  // console.log('state', state)
   return {
     cart: state.cart.cart
   }
@@ -48,11 +39,7 @@ const mapStatetoProps = state => {
 const mapDispatchtoProps = dispatch => ({
   dispatchGetAllThunk: () => dispatch(getAllThunk()),
   dispatchRemoveOrderThunk: id => dispatch(removeOrderThunk(id)),
-  dispatchAddQtyThunk: (id, quantity) => dispatch(addQtyThunk(id, quantity)),
-  dispatchSubtractQtyThunk: (id, quantity) =>
-    dispatch(subtractQtyThunk(id, quantity))
-  // incrementQty: id => dispatch(addQty(id)),
-  // decrementQty: id => dispatch(subtractQty(id))
+  dispatchUpdateQtyThunk: (id, qty) => dispatch(updateQtyThunk(id, qty))
 })
 
 // export

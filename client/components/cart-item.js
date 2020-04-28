@@ -4,24 +4,25 @@ export default class CartItem extends Component {
   constructor(props) {
     super(props)
     this.removeOrder = this.removeOrder.bind(this)
-    this.incrementQty = this.incrementQty.bind(this)
-    this.decrementQty = this.decrementQty.bind(this)
+    this.updateQuantity = this.updateQuantity.bind(this)
   }
 
   removeOrder(id) {
     this.props.delete(id)
   }
 
-  incrementQty = (id, quantity) => {
-    this.props.addQty(id, quantity)
-  }
-
-  decrementQty = (id, quantity) => {
-    this.props.subtractQty(id, quantity)
+  updateQuantity = (id, quantity) => {
+    this.props.update(id, quantity)
   }
 
   render() {
-    const {id, name, imageUrl, price, quantity} = this.props
+    let quantity
+    const {id, name, imageUrl, price} = this.props
+    if (this.props.quantity) {
+      quantity = this.props.quantity
+    } else {
+      quantity = this.props.orderBoba.quantity
+    }
 
     let realPrice = String(price * quantity)
     realPrice =
@@ -38,13 +39,13 @@ export default class CartItem extends Component {
           Quantity: {quantity}
           <button
             type="button"
-            onClick={() => this.incrementQty(id, quantity + 1)}
+            onClick={() => this.updateQuantity(id, quantity + 1)}
           >
             +
           </button>
           <button
             type="button"
-            onClick={() => this.decrementQty(id, quantity - 1)}
+            onClick={() => this.updateQuantity(id, quantity - 1)}
           >
             -
           </button>

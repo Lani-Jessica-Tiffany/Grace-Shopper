@@ -136,7 +136,7 @@ router.put('/', async (req, res, next) => {
     const {bobaId, quantity} = req.body
 
     //user experience
-    if (req.user) {
+    if (req.user && quantity > 0) {
       //update item
       const item = await OrderBoba.update(req.body, {
         where: {
@@ -144,11 +144,10 @@ router.put('/', async (req, res, next) => {
           bobaId
         },
         returning: true,
-        plain: true,
-        raw: true // return just the data and not the model instance
+        plain: true
       })
-      console.log('item', item)
-      res.json(item)
+      console.log('item', item[1])
+      res.json(item[1])
     } else {
       // is there a way to directly send item to update over to avoid cart.find method?
       // guest experience
