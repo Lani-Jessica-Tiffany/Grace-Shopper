@@ -11,7 +11,6 @@ class Cart extends Component {
     this.props.dispatchGetAllThunk()
   }
   render() {
-    console.log(this.props, 'BOBAS FROM CART')
     if (!this.props.cart || !this.props.cart.bobas) {
       return <h1>Add something to your cart!</h1>
     }
@@ -34,7 +33,6 @@ class Cart extends Component {
 
 // connect
 const mapStatetoProps = state => {
-  console.log('state', state)
   return {
     cart: state.cart.cart
   }

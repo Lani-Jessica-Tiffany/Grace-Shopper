@@ -381,10 +381,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
- // import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
-// import {removeOrderThunk} from '../store/cart'
-//add to update item quantity, remove item
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 var CartItem =
 /*#__PURE__*/
@@ -397,17 +396,22 @@ function (_Component) {
     _classCallCheck(this, CartItem);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CartItem).call(this, props));
-    _this.updateOrder = _this.updateOrder.bind(_assertThisInitialized(_this));
+
+    _defineProperty(_assertThisInitialized(_this), "incrementQty", function (id) {
+      _this.props.addQty(id);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "decrementQty", function (id) {
+      _this.props.subtractQty(id);
+    });
+
     _this.removeOrder = _this.removeOrder.bind(_assertThisInitialized(_this));
+    _this.incrementQty = _this.incrementQty.bind(_assertThisInitialized(_this));
+    _this.decrementQty = _this.decrementQty.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(CartItem, [{
-    key: "updateOrder",
-    value: function updateOrder(id, qty) {
-      this.props.update(id, qty);
-    }
-  }, {
     key: "removeOrder",
     value: function removeOrder(id) {
       this.props["delete"](id);
@@ -417,18 +421,29 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
+      var quantity;
       var _this$props = this.props,
           id = _this$props.id,
           name = _this$props.name,
           imageUrl = _this$props.imageUrl,
-          price = _this$props.price,
-          quantity = _this$props.quantity;
+          price = _this$props.price;
+      if (this.props.quantity) quantity = this.props.quantity;else quantity = this.props.orderBoba.quantity;
       var realPrice = String(price * quantity);
       realPrice = realPrice.slice(0, realPrice.length - 2) + '.' + realPrice.slice(realPrice.length - 2);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: imageUrl,
         className: "bobaImg"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Name: ", name, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Price: $", realPrice), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Quantity: ", quantity), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Name: ", name, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Price: $", realPrice), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Quantity: ", quantity, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        onClick: function onClick() {
+          return _this2.incrementQty(id);
+        }
+      }, "+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        onClick: function onClick() {
+          return _this2.decrementQty(id);
+        }
+      }, "-")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: function onClick() {
           return _this2.removeOrder(id);
@@ -438,11 +453,7 @@ function (_Component) {
   }]);
 
   return CartItem;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]); // const mapDispatchtoProps = dispatch => ({
-//   dispatchRemoveOrderThunk: id => dispatch(removeOrderThunk(id))
-// })
-// export default connect(null, mapDispatchtoProps)(CartItem)
-
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
 
@@ -510,8 +521,6 @@ function (_Component) {
     value: function render() {
       var _this = this;
 
-      console.log(this.props, 'BOBAS FROM CART');
-
       if (!this.props.cart || !this.props.cart.bobas) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Add something to your cart!");
       }
@@ -519,8 +528,9 @@ function (_Component) {
       var bobas = this.props.cart.bobas;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, bobas.map(function (boba) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cart_item__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({}, boba, {
-          update: _this.props.dispatchUpdateOrderThunk,
           "delete": _this.props.dispatchRemoveOrderThunk,
+          addQty: _this.props.incrementQty,
+          subtractQty: _this.props.decrementQty,
           key: boba.id
         }));
       }));
@@ -532,26 +542,24 @@ function (_Component) {
 
 
 var mapStatetoProps = function mapStatetoProps(state) {
-  // console.log(state, 'STATE')
   return {
     cart: state.cart.cart
   };
 };
-/* const mapStatetoProps = state => ({
-  bobas: state.cart.all
-}) */
-
 
 var mapDispatchtoProps = function mapDispatchtoProps(dispatch) {
   return {
     dispatchGetAllThunk: function dispatchGetAllThunk() {
       return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["getAllThunk"])());
     },
-    dispatchUpdateOrderThunk: function dispatchUpdateOrderThunk(id, qty) {
-      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["updateOrderThunk"])(id, qty));
-    },
     dispatchRemoveOrderThunk: function dispatchRemoveOrderThunk(id) {
       return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["removeOrderThunk"])(id));
+    },
+    incrementQty: function incrementQty(id) {
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["addQty"])(id));
+    },
+    decrementQty: function decrementQty(id) {
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["subtractQty"])(id));
     }
   };
 }; // export
@@ -1594,14 +1602,15 @@ var boba = function boba() {
 /*!******************************!*\
   !*** ./client/store/cart.js ***!
   \******************************/
-/*! exports provided: getAllThunk, addOrderThunk, updateOrderThunk, removeOrderThunk, default */
+/*! exports provided: addQty, subtractQty, getAllThunk, addOrderThunk, removeOrderThunk, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addQty", function() { return addQty; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subtractQty", function() { return subtractQty; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllThunk", function() { return getAllThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addOrderThunk", function() { return addOrderThunk; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateOrderThunk", function() { return updateOrderThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeOrderThunk", function() { return removeOrderThunk; });
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -1616,8 +1625,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // action type
 var GET_ALL = 'GET_ALL';
 var ADD_ORDER = 'ADD_ORDER';
-var UPDATE_ORDER = 'UPDATE_ORDER';
-var REMOVE_ORDER = 'REMOVE_ORDER'; // action creator
+var REMOVE_ORDER = 'REMOVE_ORDER';
+var ADD_QTY = 'ADD_QTY';
+var SUBTRACT_QTY = 'SUBTRACT_QTY'; // action creator
 
 var getAll = function getAll(cart) {
   return {
@@ -1633,21 +1643,25 @@ var addOrder = function addOrder(cart) {
   };
 };
 
-var updateOrder = function updateOrder(order, quantity) {
-  return {
-    type: UPDATE_ORDER,
-    order: order,
-    quantity: quantity
-  };
-};
-
 var removeOrder = function removeOrder(bobaId) {
   return {
     type: REMOVE_ORDER,
     bobaId: bobaId
   };
-}; // thunk creator
+};
 
+var addQty = function addQty(bobaId) {
+  return {
+    type: ADD_QTY,
+    bobaId: bobaId
+  };
+};
+var subtractQty = function subtractQty(bobaId) {
+  return {
+    type: SUBTRACT_QTY,
+    bobaId: bobaId
+  };
+}; // thunk creator
 
 var getAllThunk = function getAllThunk() {
   return (
@@ -1741,7 +1755,7 @@ var addOrderThunk = function addOrderThunk(bobaId, quantity) {
     }()
   );
 };
-var updateOrderThunk = function updateOrderThunk(bobaId, quantity) {
+var removeOrderThunk = function removeOrderThunk(bobaId) {
   return (
     /*#__PURE__*/
     function () {
@@ -1757,15 +1771,12 @@ var updateOrderThunk = function updateOrderThunk(bobaId, quantity) {
                 axios = _ref7.axios;
                 _context3.prev = 1;
                 _context3.next = 4;
-                return axios.put('/api/cart', {
-                  bobaId: bobaId,
-                  quantity: quantity
-                });
+                return axios["delete"]("/api/cart/".concat(bobaId));
 
               case 4:
                 _ref9 = _context3.sent;
                 data = _ref9.data;
-                dispatch(updateOrder(data));
+                dispatch(removeOrder(data));
                 _context3.next = 12;
                 break;
 
@@ -1784,50 +1795,6 @@ var updateOrderThunk = function updateOrderThunk(bobaId, quantity) {
 
       return function (_x7, _x8, _x9) {
         return _ref8.apply(this, arguments);
-      };
-    }()
-  );
-};
-var removeOrderThunk = function removeOrderThunk(bobaId) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref11 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee4(dispatch, getState, _ref10) {
-        var axios, _ref12, data;
-
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                axios = _ref10.axios;
-                _context4.prev = 1;
-                _context4.next = 4;
-                return axios["delete"]("/api/cart/".concat(bobaId));
-
-              case 4:
-                _ref12 = _context4.sent;
-                data = _ref12.data;
-                dispatch(removeOrder(data));
-                _context4.next = 12;
-                break;
-
-              case 9:
-                _context4.prev = 9;
-                _context4.t0 = _context4["catch"](1);
-                console.log(_context4.t0);
-
-              case 12:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, null, [[1, 9]]);
-      }));
-
-      return function (_x10, _x11, _x12) {
-        return _ref11.apply(this, arguments);
       };
     }()
   );
@@ -1858,22 +1825,46 @@ var cart = function cart() {
         cart: action.cart
       });
 
-    case UPDATE_ORDER:
-      var newState = all.map(function (order) {
-        if (order.id === action.id) {
-          return _objectSpread({}, order, {
-            quantity: action.quantity
-          });
-        }
-      });
-      return _objectSpread({}, state, {
-        cart: newState
-      });
-
     case REMOVE_ORDER:
       return _objectSpread({}, state, {
         cart: action.bobaId // cart: state.cart.bobas.filter(boba => boba.id !== action.bobaId)
 
+      });
+
+    case ADD_QTY:
+      var newState = state.cart.bobas.map(function (boba) {
+        if (boba.id === action.bobaId) {
+          return _objectSpread({}, boba, {
+            orderBoba: _objectSpread({}, boba.orderBoba, {
+              quantity: Math.min(boba.orderBoba.quantity + 1, 10)
+            })
+          });
+        }
+
+        return boba;
+      });
+      return _objectSpread({}, state, {
+        cart: _objectSpread({}, state.cart, {
+          bobas: newState
+        })
+      });
+
+    case SUBTRACT_QTY:
+      var newStateTwo = state.cart.bobas.map(function (boba) {
+        if (boba.id === action.bobaId) {
+          return _objectSpread({}, boba, {
+            orderBoba: _objectSpread({}, boba.orderBoba, {
+              quantity: Math.max(boba.orderBoba.quantity - 1, 1)
+            })
+          });
+        }
+
+        return boba;
+      });
+      return _objectSpread({}, state, {
+        cart: _objectSpread({}, state.cart, {
+          bobas: newStateTwo
+        })
       });
 
     default:
@@ -45787,7 +45778,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

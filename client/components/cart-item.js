@@ -21,8 +21,10 @@ export default class CartItem extends Component {
   }
 
   render() {
+    let quantity
     const {id, name, imageUrl, price} = this.props
-    const {quantity} = this.props.orderBoba
+    if (this.props.quantity) quantity = this.props.quantity
+    else quantity = this.props.orderBoba.quantity
 
     let realPrice = String(price * quantity)
     realPrice =
