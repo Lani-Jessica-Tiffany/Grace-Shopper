@@ -106,7 +106,7 @@ router.post('/', async (req, res, next) => {
       if (!req.session.cart) req.session.cart = []
       let cart = req.session.cart
       // find item with same bobaId as req.body
-      const findItem = cart.find(item => item.bobaId === bobaId)
+      const findItem = cart.find(item => item.id === bobaId)
       // if item already exists, then update item quantity
       if (findItem) {
         findItem.quantity += quantity
@@ -221,20 +221,24 @@ router.delete('/:bobaId', async (req, res, next) => {
         include: [{model: Boba}]
       })
       //respond with status
-      console.log('orderrrrrrr', order)
       res.status(200).json(order[0])
     } else {
       // guest experience - i.e. no req.user
       // cart already exists if you can access delete route
+      //  initialize cart if it does not exist
+      if (!req.session.cart) req.session.cart = []
       let cart = req.session.cart
+      let removedItem
       // remove selected boba item from cart
-      const remove = (item, i) => {
-        if (item.bobaId === req.params.bobaId) {
-          cart.slice(cart.indexOf(i), 1)
+      const remove = item => {
+        // item.id is number, req.params.bobaId is string
+        if (String(item.id) === req.params.bobaId) {
+          removedItem = item
+          cart.splice(cart.indexOf(item), 1)
         }
       }
       cart.forEach(remove)
-      res.send(req.session.cart)
+      res.json(removedItem)
     }
   } catch (err) {
     next(err)

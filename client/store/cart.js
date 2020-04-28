@@ -24,6 +24,7 @@ const removeOrder = bobaId => ({
 const checkout = orderId => ({
   type: CHECKOUT,
   orderId
+})
 
 export const updateQty = data => ({
   type: UPDATE_QTY,
@@ -115,7 +116,7 @@ const cart = (state = initialState, action) => {
         cart: action.bobaId
         // cart: state.cart.bobas.filter(boba => boba.id !== action.bobaId)
       }
-      
+
     case CHECKOUT:
       return {...state, cart: action.type}
 

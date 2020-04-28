@@ -2,7 +2,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {getAllThunk, updateOrderThunk, removeOrderThunk, updateQtyThunk} from '../store/cart'
+import {
+  getAllThunk,
+  updateOrderThunk,
+  removeOrderThunk,
+  updateQtyThunk
+} from '../store/cart'
 import CartItem from './cart-item'
 
 // component
