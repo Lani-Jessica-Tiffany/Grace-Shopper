@@ -11,10 +11,11 @@ class Cart extends Component {
     this.props.dispatchGetAllThunk()
   }
   render() {
-    const {bobas} = this.props.bobas
-    if (!bobas || !bobas.length) {
-      return <h1>Loading</h1>
+    console.log(this.props, 'BOBAS FROM CART')
+    if (!this.props.cart || !this.props.cart.bobas) {
+      return <h1>Add something to your cart!</h1>
     }
+    const {bobas} = this.props.cart
     return (
       <div>
         {bobas.map(boba => (
@@ -34,7 +35,7 @@ class Cart extends Component {
 const mapStatetoProps = state => {
   // console.log(state, 'STATE')
   return {
-    bobas: state.cart.all
+    cart: state.cart.cart
   }
 }
 /* const mapStatetoProps = state => ({
