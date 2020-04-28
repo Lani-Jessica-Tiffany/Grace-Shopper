@@ -9,6 +9,7 @@ import {
   Main,
   All,
   Cart,
+  Checkout,
   Single,
   UserFront
 } from './components'
@@ -36,7 +37,8 @@ class Routes extends Component {
           <Route path="/home" component={UserHome} />
           {/* Routes placed here are only available if user is admin */}
           {admin && <Route path="/users" component={UserFront} />}
-          <Route path="/cart" component={Cart} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/cart/checkout" component={Checkout} />
           {/* Displays our Main component as a fallback */}
           <Route component={Main} />
         </Switch>
@@ -47,7 +49,8 @@ class Routes extends Component {
           <Route path="/boba/:id" component={Single} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          <Route path="/cart" component={Cart} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/cart/checkout" component={Checkout} />
           <Route component={Main} />
         </Switch>
       )
