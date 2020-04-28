@@ -133,30 +133,21 @@ router.post('/', async (req, res, next) => {
 // access route by clicking item's 'Update Quantity' button on cart page
 router.put('/', async (req, res, next) => {
   try {
-    // fake data (for now)
-    req.body = {
-      bobaId: 3,
-      orderId: 1, //access to order is available b/c on cart page
-      name: 'Almond Milk Tea',
-      price: 300,
-      quantity: 2,
-      imageUrl:
-        'https://chloejohnston.com/wp-content/uploads/2019/07/mango-slush-bubble.png'
-    }
-    const {bobaId, orderId, quantity} = req.body
+    const {bobaId, quantity} = req.body
 
     //user experience
-    if (req.user) {
-      let item = await OrderBoba.findOne({
+    if (req.user && quantity > 0) {
+      //update item
+      const item = await OrderBoba.update(req.body, {
         where: {
-          orderId,
+          orderId: req.session.orderId,
           bobaId
-        }
+        },
+        returning: true,
+        plain: true
       })
-      //update quantity
-      item.quantity = quantity
-      item = await item.save() //not sure if you need in order to save in database
-      res.json(item)
+      console.log('item', item[1])
+      res.json(item[1])
     } else {
       // guest experience
       let cart = req.session.cart

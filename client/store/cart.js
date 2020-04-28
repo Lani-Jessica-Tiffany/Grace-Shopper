@@ -1,9 +1,9 @@
 // action type
 const GET_ALL = 'GET_ALL'
 const ADD_ORDER = 'ADD_ORDER'
-const UPDATE_ORDER = 'UPDATE_ORDER'
 const REMOVE_ORDER = 'REMOVE_ORDER'
 const CHECKOUT = 'CHECKOUT'
+const UPDATE_QTY = 'UPDATE_QTY'
 
 // action creator
 const getAll = cart => ({
@@ -16,12 +16,6 @@ const addOrder = cart => ({
   cart
 })
 
-const updateOrder = (order, quantity) => ({
-  type: UPDATE_ORDER,
-  order,
-  quantity
-})
-
 const removeOrder = bobaId => ({
   type: REMOVE_ORDER,
   bobaId
@@ -30,6 +24,10 @@ const removeOrder = bobaId => ({
 const checkout = orderId => ({
   type: CHECKOUT,
   orderId
+
+export const updateQty = data => ({
+  type: UPDATE_QTY,
+  data
 })
 
 // thunk creator
@@ -56,19 +54,6 @@ export const addOrderThunk = (bobaId, quantity) => async (
   }
 }
 
-export const updateOrderThunk = (bobaId, quantity) => async (
-  dispatch,
-  getState,
-  {axios}
-) => {
-  try {
-    const {data} = await axios.put('/api/cart', {bobaId, quantity})
-    dispatch(updateOrder(data))
-  } catch (err) {
-    console.log(err)
-  }
-}
-
 export const removeOrderThunk = bobaId => async (
   dispatch,
   getState,
@@ -77,6 +62,19 @@ export const removeOrderThunk = bobaId => async (
   try {
     const {data} = await axios.delete(`/api/cart/${bobaId}`)
     dispatch(removeOrder(data))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const updateQtyThunk = (bobaId, quantity) => async (
+  dispatch,
+  getState,
+  {axios}
+) => {
+  try {
+    const {data} = await axios.put('/api/cart/', {bobaId, quantity})
+    dispatch(updateQty(data))
   } catch (err) {
     console.log(err)
   }
@@ -111,25 +109,29 @@ const cart = (state = initialState, action) => {
     case ADD_ORDER:
       return {...state, cart: action.cart}
 
-    case UPDATE_ORDER:
-      const newState = all.map(order => {
-        if (order.id === action.id) {
-          return {
-            ...order,
-            quantity: action.quantity
-          }
-        }
-      })
-      return {...state, cart: newState}
-
     case REMOVE_ORDER:
       return {
         ...state,
         cart: action.bobaId
         // cart: state.cart.bobas.filter(boba => boba.id !== action.bobaId)
       }
+      
     case CHECKOUT:
       return {...state, cart: action.type}
+
+    case UPDATE_QTY:
+      const newState = state.cart.bobas.map(boba => {
+        if (boba.id === action.data.bobaId) {
+          return {
+            ...boba,
+            orderBoba: action.data,
+            quantity: action.data.quantity
+          }
+        }
+        return boba
+      })
+      return {...state, cart: {...state.cart, bobas: newState}}
+
     default:
       return state
   }
