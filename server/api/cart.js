@@ -234,6 +234,8 @@ router.delete('/:bobaId', async (req, res, next) => {
     } else {
       // guest experience - i.e. no req.user
       // cart already exists if you can access delete route
+      //  initialize cart if it does not exist
+      if (!req.session.cart) req.session.cart = []
       let cart = req.session.cart
       let removedItem
       // remove selected boba item from cart
@@ -241,12 +243,12 @@ router.delete('/:bobaId', async (req, res, next) => {
         // item.id is number, req.params.bobaId is string
         if (String(item.id) === req.params.bobaId) {
           removedItem = item
-          cart.slice(cart.indexOf(item), 1)
+          cart.splice(cart.indexOf(item), 1)
         }
       }
       cart.forEach(remove)
-      console.log('removedItem', removedItem)
-      res.send(removedItem)
+      console.log('caaaart', cart)
+      res.json(removedItem)
     }
   } catch (err) {
     next(err)
