@@ -1,6 +1,7 @@
 // import
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {getAllThunk, updateOrderThunk, removeOrderThunk} from '../store/cart'
 // import CartAgg from './cart-agg'
 import CartItem from './cart-item'
