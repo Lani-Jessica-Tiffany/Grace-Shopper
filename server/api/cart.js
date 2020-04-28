@@ -158,7 +158,6 @@ router.put('/', async (req, res, next) => {
       item = await item.save() //not sure if you need in order to save in database
       res.json(item)
     } else {
-      // is there a way to directly send item to update over to avoid cart.find method?
       // guest experience
       let cart = req.session.cart
       // find item with same bobaId as req.body
@@ -172,6 +171,46 @@ router.put('/', async (req, res, next) => {
   }
 })
 
+//PUT For CHECKOUT
+router.put('/checkout', async (req, res, next) => {
+  try {
+    const {orderId} = req.body
+    //user experience
+    if (req.user) {
+      const orderUp = await Order.findByPk(orderId)
+      console.log(orderUp)
+      await orderUp.update({
+        status: true
+      })
+      res.json(orderUp)
+    } else {
+      //let cart = req.session.cart
+      const order = await Order.findOrCreate({
+        where: {
+          userId: req.session.id,
+          status: true
+        }
+      })
+      //const orderId = order.id
+      // find or create item tied to order
+      // const [item, itemCreated] = await OrderBoba.findOrCreate({
+      //   where: {
+      //     orderId,
+      //     bobaId
+      //   },
+      //   defaults: {
+      //     name,
+      //     price,
+      //     quantity,
+      //     imageUrl
+      //   }
+      // })
+      res.json(order)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
 //DELETE boba from the cart api/cart
 router.delete('/:bobaId', async (req, res, next) => {
   try {
