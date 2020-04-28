@@ -238,11 +238,10 @@ router.delete('/:bobaId', async (req, res, next) => {
       let removedItem
       // remove selected boba item from cart
       const remove = item => {
-        console.log('itemid', item.id)
-        console.log('paramss', req.params.bobaId)
-        if (item.id === req.params.bobaId) {
-          cart.slice(cart.indexOf(item), 1)
+        // item.id is number, req.params.bobaId is string
+        if (String(item.id) === req.params.bobaId) {
           removedItem = item
+          cart.slice(cart.indexOf(item), 1)
         }
       }
       cart.forEach(remove)
