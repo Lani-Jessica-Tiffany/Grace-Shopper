@@ -10,7 +10,8 @@ class Single extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      quantity: ''
+      quantity: '1',
+      message: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -30,7 +31,15 @@ class Single extends Component {
     const bobaId = this.props.boba.id
     const quantity = parseFloat(this.state.quantity)
     this.props.dispatchAddOrderThunk(bobaId, quantity)
-    this.setState({quantity: ''})
+    this.setState({
+      quantity: '',
+      message: 'Added to Cart'
+    })
+    setTimeout(() => {
+      this.setState({
+        message: ''
+      })
+    }, 2000)
   }
 
   render() {
@@ -44,12 +53,13 @@ class Single extends Component {
             onChange={e => this.handleChange(e)}
             type="number"
             id="quantity"
-            min="0"
+            min="1"
             max="10"
-            value={this.state.value}
+            value={this.state.quantity}
             name="quantity"
           />
           <button type="submit">Add to Cart!</button>
+          <p>{this.state.message}</p>
         </form>
       </div>
     )
