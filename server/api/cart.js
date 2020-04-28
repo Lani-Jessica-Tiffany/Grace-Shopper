@@ -133,37 +133,22 @@ router.post('/', async (req, res, next) => {
 // access route by clicking item's 'Update Quantity' button on cart page
 router.put('/', async (req, res, next) => {
   try {
-    // fake data (for now)
-    // req.body = {
-    //   bobaId: 3,
-    //   orderId: 1, //access to order is available b/c on cart page
-    //   name: 'Almond Milk Tea',
-    //   price: 300,
-    //   quantity: 2,
-    //   imageUrl:
-    //     'https://chloejohnston.com/wp-content/uploads/2019/07/mango-slush-bubble.png'
-    // }
     const {bobaId, quantity} = req.body
 
     //user experience
     if (req.user) {
       //update item
-      const [n, m] = await OrderBoba.update(req.body, {
+      const item = await OrderBoba.update(req.body, {
         where: {
           orderId: req.session.orderId,
           bobaId
         },
         returning: true,
-        plain: true
+        plain: true,
+        raw: true // return just the data and not the model instance
       })
-      res.json(m)
-
-      //update quantity
-      //item.quantity = quantity
-      //item = await item.update() //not sure if you need in order to save in database
-      // const item = await affectedRows[0] //needt o consolel og to make sure
-      // console.log('item', item)
-      // res.json(item)
+      console.log('item', item)
+      res.json(item)
     } else {
       // is there a way to directly send item to update over to avoid cart.find method?
       // guest experience

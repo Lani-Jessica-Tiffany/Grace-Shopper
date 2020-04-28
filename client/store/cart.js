@@ -129,7 +129,7 @@ const cart = (state = initialState, action) => {
             ...boba,
             orderBoba: {
               ...boba.orderBoba,
-              quantity: Math.min(boba.orderBoba.quantity + 1, 10)
+              quantity: boba.orderBoba.quantity
             }
           }
         }
@@ -144,7 +144,7 @@ const cart = (state = initialState, action) => {
             ...boba,
             orderBoba: {
               ...boba.orderBoba,
-              quantity: Math.max(boba.orderBoba.quantity - 1, 1)
+              quantity: Math.max(boba.orderBoba.quantity, 1)
             }
           }
         }

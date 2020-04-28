@@ -21,8 +21,7 @@ export default class CartItem extends Component {
   }
 
   render() {
-    const {id, name, imageUrl, price} = this.props
-    const {quantity} = this.props.orderBoba
+    const {id, name, imageUrl, price, quantity} = this.props
 
     let realPrice = String(price * quantity)
     realPrice =
@@ -37,10 +36,16 @@ export default class CartItem extends Component {
         <h5>Price: ${realPrice}</h5>
         <h5>
           Quantity: {quantity}
-          <button type="button" onClick={() => this.incrementQty(id, quantity)}>
+          <button
+            type="button"
+            onClick={() => this.incrementQty(id, quantity + 1)}
+          >
             +
           </button>
-          <button type="button" onClick={() => this.decrementQty(id, quantity)}>
+          <button
+            type="button"
+            onClick={() => this.decrementQty(id, quantity - 1)}
+          >
             -
           </button>
         </h5>
