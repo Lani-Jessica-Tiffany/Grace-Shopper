@@ -10,7 +10,12 @@ class All extends Component {
     this.props.dispatchGetAllThunk()
   }
   render() {
-    return this.props.bobas ? <AllAgg {...this.props} /> : <h1>Loading</h1>
+    const {bobas} = this.props
+    return !bobas || !bobas.length ? (
+      <h1>Loading</h1>
+    ) : (
+      <AllAgg {...this.props} />
+    )
   }
 }
 

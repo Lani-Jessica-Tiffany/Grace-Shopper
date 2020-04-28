@@ -1,8 +1,14 @@
 // import
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getAllThunk} from '../store/cart'
-import CartAgg from './cart-agg'
+import {Link} from 'react-router-dom'
+import {
+  getAllThunk,
+  updateOrderThunk,
+  removeOrderThunk,
+  updateQtyThunk
+} from '../store/cart'
+import CartItem from './cart-item'
 
 // component
 class Cart extends Component {
@@ -10,17 +16,36 @@ class Cart extends Component {
     this.props.dispatchGetAllThunk()
   }
   render() {
-    return <CartAgg {...this.props} />
+    if (!this.props.cart || !this.props.cart.bobas) {
+      return <h1>Add something to your cart!</h1>
+    }
+    const {bobas} = this.props.cart
+    return (
+      <div>
+        {bobas.map(boba => (
+          <CartItem
+            {...boba}
+            delete={this.props.dispatchRemoveOrderThunk}
+            update={this.props.dispatchUpdateQtyThunk}
+            key={boba.id}
+          />
+        ))}
+      </div>
+    )
   }
 }
 
 // connect
-const mapStatetoProps = state => ({
-  bobas: state.cart.all
-})
+const mapStatetoProps = state => {
+  return {
+    cart: state.cart.cart
+  }
+}
 
 const mapDispatchtoProps = dispatch => ({
-  dispatchGetAllThunk: () => dispatch(getAllThunk())
+  dispatchGetAllThunk: () => dispatch(getAllThunk()),
+  dispatchRemoveOrderThunk: id => dispatch(removeOrderThunk(id)),
+  dispatchUpdateQtyThunk: (id, qty) => dispatch(updateQtyThunk(id, qty))
 })
 
 // export
