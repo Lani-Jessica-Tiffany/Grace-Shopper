@@ -68,6 +68,32 @@ export const removeOrderThunk = bobaId => async (
   }
 }
 
+export const addQtyThunk = (bobaId, quantity) => async (
+  dispatch,
+  getState,
+  {axios}
+) => {
+  try {
+    const {data} = await axios.put('/api/cart/', {bobaId, quantity})
+    dispatch(addQty(data))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const removeQtyThunk = (bobaId, quantity) => async (
+  dispatch,
+  getState,
+  {axios}
+) => {
+  try {
+    const {data} = await axios.put('/api/cart/', {bobaId, quantity})
+    dispatch(subtractQty(data))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 // state
 const initialState = {
   cart: []

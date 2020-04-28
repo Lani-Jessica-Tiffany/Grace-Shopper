@@ -12,12 +12,12 @@ export default class CartItem extends Component {
     this.props.delete(id)
   }
 
-  incrementQty = id => {
-    this.props.addQty(id)
+  incrementQty = (id, quantity) => {
+    this.props.addQty(id, quantity)
   }
 
-  decrementQty = id => {
-    this.props.subtractQty(id)
+  decrementQty = (id, quantity) => {
+    this.props.subtractQty(id, quantity)
   }
 
   render() {
@@ -37,14 +37,14 @@ export default class CartItem extends Component {
         <h5>Price: ${realPrice}</h5>
         <h5>
           Quantity: {quantity}
-          <button type="button" onClick={() => this.incrementQty(id)}>
+          <button type="button" onClick={() => this.incrementQty(id, quantity)}>
             +
           </button>
-          <button type="button" onClick={() => this.decrementQty(id)}>
+          <button type="button" onClick={() => this.decrementQty(id, quantity)}>
             -
           </button>
         </h5>
-        <button type="button" onClick={() => this.removeOrder(id)}>
+        <button type="button" onClick={() => this.removeOrder(id, quantity)}>
           {' '}
           Remove From Cart
         </button>
