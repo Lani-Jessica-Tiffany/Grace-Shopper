@@ -21,7 +21,8 @@ export default class CartItem extends Component {
   }
 
   render() {
-    const {id, name, imageUrl, price, quantity} = this.props
+    const {id, name, imageUrl, price} = this.props
+    const {quantity} = this.props.orderBoba
 
     let realPrice = String(price * quantity)
     realPrice =

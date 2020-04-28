@@ -97,7 +97,7 @@ const cart = (state = initialState, action) => {
       }
 
     case ADD_QTY:
-      const newState = state.all.bobas.map(boba => {
+      const newState = state.cart.bobas.map(boba => {
         if (boba.id === action.bobaId) {
           return {
             ...boba,
@@ -109,10 +109,10 @@ const cart = (state = initialState, action) => {
         }
         return boba
       })
-      return {...state, all: {...state.all, bobas: newState}}
+      return {...state, cart: {...state.cart, bobas: newState}}
 
     case SUBTRACT_QTY:
-      const newStateTwo = state.all.bobas.map(boba => {
+      const newStateTwo = state.cart.bobas.map(boba => {
         if (boba.id === action.bobaId) {
           return {
             ...boba,
@@ -124,7 +124,7 @@ const cart = (state = initialState, action) => {
         }
         return boba
       })
-      return {...state, all: {...state.all, bobas: newStateTwo}}
+      return {...state, cart: {...state.cart, bobas: newStateTwo}}
 
     default:
       return state

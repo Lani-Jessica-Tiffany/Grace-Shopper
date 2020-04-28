@@ -34,7 +34,7 @@ class Cart extends Component {
 
 // connect
 const mapStatetoProps = state => {
-  console.log('state.cart.all', state.cart.all)
+  console.log('state', state)
   return {
     cart: state.cart.cart
   }
