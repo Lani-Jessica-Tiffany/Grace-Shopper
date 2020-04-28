@@ -472,8 +472,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _store_cart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/cart */ "./client/store/cart.js");
-/* harmony import */ var _cart_item__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cart-item */ "./client/components/cart-item.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _store_cart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/cart */ "./client/store/cart.js");
+/* harmony import */ var _cart_item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./cart-item */ "./client/components/cart-item.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -495,6 +496,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 // import
+
 
 
 
@@ -527,7 +529,7 @@ function (_Component) {
 
       var bobas = this.props.cart.bobas;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, bobas.map(function (boba) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cart_item__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({}, boba, {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cart_item__WEBPACK_IMPORTED_MODULE_4__["default"], _extends({}, boba, {
           "delete": _this.props.dispatchRemoveOrderThunk,
           update: _this.props.dispatchUpdateQtyThunk,
           key: boba.id
@@ -549,13 +551,13 @@ var mapStatetoProps = function mapStatetoProps(state) {
 var mapDispatchtoProps = function mapDispatchtoProps(dispatch) {
   return {
     dispatchGetAllThunk: function dispatchGetAllThunk() {
-      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["getAllThunk"])());
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_3__["getAllThunk"])());
     },
     dispatchRemoveOrderThunk: function dispatchRemoveOrderThunk(id) {
-      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["removeOrderThunk"])(id));
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_3__["removeOrderThunk"])(id));
     },
     dispatchUpdateQtyThunk: function dispatchUpdateQtyThunk(id, qty) {
-      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["updateQtyThunk"])(id, qty));
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_3__["updateQtyThunk"])(id, qty));
     }
   };
 }; // export
@@ -565,11 +567,146 @@ var mapDispatchtoProps = function mapDispatchtoProps(dispatch) {
 
 /***/ }),
 
+/***/ "./client/components/checkout.js":
+/*!***************************************!*\
+  !*** ./client/components/checkout.js ***!
+  \***************************************/
+/*! exports provided: Checkout, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Checkout", function() { return Checkout; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_cart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/cart */ "./client/store/cart.js");
+/* harmony import */ var _cart_item__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cart-item */ "./client/components/cart-item.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var Checkout =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Checkout, _React$Component);
+
+  function Checkout() {
+    var _this;
+
+    _classCallCheck(this, Checkout);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Checkout).call(this));
+    _this.state = {
+      message: ''
+    };
+    return _this;
+  }
+
+  _createClass(Checkout, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.dispatchGetAllThunk();
+    }
+  }, {
+    key: "checkout",
+    value: function checkout(orderId) {
+      this.props.dispatchCheckoutThunk(orderId);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props, 'CHECKOUT');
+
+      if (!this.props.cart || !this.props.cart.bobas) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Nothing in your Cart");
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+      /* const {price, quantity, name, imageUrl} = this.props.cart.bobas
+       console.log(name)
+      let realPrice = String(price * quantity)
+      realPrice =
+        realPrice.slice(0, realPrice.length - 2) +
+        '.' + realPrice.slice(realPrice.length - 2)
+        return(
+        <div>
+          <div>
+          <h3>Checkout Here:</h3>
+          <h4>Review your order</h4>
+          </div>
+           {bobas && bobas.length
+          ? bobas.map(boba =>(
+            <div key={boba.id}>
+            <h5>Name: {name}</h5>
+            <img src={imageUrl} className="bobaImg" />
+            <h5>Price: ${realPrice}</h5>
+            <h5>Quantity: {quantity}</h5>
+            </div>
+          ))
+          : <h1>Loading</h1>
+          }
+          <div>
+          <button
+          type= "button"
+          onClick = {() => this.checkout(orderId)} >
+          Place my Order
+          </button>
+          <p>{this.state.message}</p>
+          </div>
+        </div>
+      ) */
+    }
+  }]);
+
+  return Checkout;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var mapStatetoProps = function mapStatetoProps(state) {
+  console.log(state, 'STATE');
+  return {
+    cart: state.cart.cart
+  };
+};
+
+var mapDispatchtoProps = function mapDispatchtoProps(dispatch) {
+  return {
+    dispatchGetAllThunk: function dispatchGetAllThunk() {
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["getAllThunk"])());
+    },
+    dispatchCheckoutThunk: function dispatchCheckoutThunk(id) {
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["checkoutThunk"])(id));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStatetoProps, mapDispatchtoProps)(Checkout));
+
+/***/ }),
+
 /***/ "./client/components/index.js":
 /*!************************************!*\
   !*** ./client/components/index.js ***!
   \************************************/
-/*! exports provided: Navbar, UserHome, Login, Signup, Main, All, Cart, CartItem, Single, UserFront */
+/*! exports provided: Navbar, UserHome, Login, Signup, Main, All, Cart, CartItem, Checkout, Single, UserFront */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -597,17 +734,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cart_item__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cart-item */ "./client/components/cart-item.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CartItem", function() { return _cart_item__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
-/* harmony import */ var _single__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./single */ "./client/components/single.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Single", function() { return _single__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+/* harmony import */ var _checkout__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./checkout */ "./client/components/checkout.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Checkout", function() { return _checkout__WEBPACK_IMPORTED_MODULE_7__["default"]; });
 
-/* harmony import */ var _user_front__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./user-front */ "./client/components/user-front.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UserFront", function() { return _user_front__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+/* harmony import */ var _single__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./single */ "./client/components/single.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Single", function() { return _single__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+
+/* harmony import */ var _user_front__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./user-front */ "./client/components/user-front.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UserFront", function() { return _user_front__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
 /**
  * `components/index.js` exists simply as a 'central export' for our components.
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
+
 
 
 
@@ -687,7 +828,9 @@ var Navbar = function Navbar(_ref) {
     to: "/signup"
   }, "Sign Up")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/cart"
-  }, "Cart")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
+  }, "Cart"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/cart/checkout"
+  }, "Checkout")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
 };
 /**
  * CONTAINER
@@ -1285,8 +1428,13 @@ function (_Component) {
           path: "/users",
           component: _components__WEBPACK_IMPORTED_MODULE_4__["UserFront"]
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+          exact: true,
           path: "/cart",
           component: _components__WEBPACK_IMPORTED_MODULE_4__["Cart"]
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+          exact: true,
+          path: "/cart/checkout",
+          component: _components__WEBPACK_IMPORTED_MODULE_4__["Checkout"]
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
           component: _components__WEBPACK_IMPORTED_MODULE_4__["Main"]
         })) : // Display public routes
@@ -1304,8 +1452,13 @@ function (_Component) {
           path: "/signup",
           component: _components__WEBPACK_IMPORTED_MODULE_4__["Signup"]
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+          exact: true,
           path: "/cart",
           component: _components__WEBPACK_IMPORTED_MODULE_4__["Cart"]
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+          exact: true,
+          path: "/cart/checkout",
+          component: _components__WEBPACK_IMPORTED_MODULE_4__["Checkout"]
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
           component: _components__WEBPACK_IMPORTED_MODULE_4__["Main"]
         }))
@@ -1599,298 +1752,9 @@ var boba = function boba() {
   !*** ./client/store/cart.js ***!
   \******************************/
 /*! exports provided: updateQty, getAllThunk, addOrderThunk, removeOrderThunk, updateQtyThunk, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateQty", function() { return updateQty; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllThunk", function() { return getAllThunk; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addOrderThunk", function() { return addOrderThunk; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeOrderThunk", function() { return removeOrderThunk; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateQtyThunk", function() { return updateQtyThunk; });
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-// action type
-var GET_ALL = 'GET_ALL';
-var ADD_ORDER = 'ADD_ORDER';
-var REMOVE_ORDER = 'REMOVE_ORDER';
-var UPDATE_QTY = 'UPDATE_QTY'; // action creator
-
-var getAll = function getAll(cart) {
-  return {
-    type: GET_ALL,
-    cart: cart
-  };
-};
-
-var addOrder = function addOrder(cart) {
-  return {
-    type: ADD_ORDER,
-    cart: cart
-  };
-};
-
-var removeOrder = function removeOrder(bobaId) {
-  return {
-    type: REMOVE_ORDER,
-    bobaId: bobaId
-  };
-};
-
-var updateQty = function updateQty(data) {
-  return {
-    type: UPDATE_QTY,
-    data: data
-  };
-}; // thunk creator
-
-var getAllThunk = function getAllThunk() {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref2 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(dispatch, getState, _ref) {
-        var axios, _ref3, data, action;
-
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                axios = _ref.axios;
-                _context.prev = 1;
-                _context.next = 4;
-                return axios.get('/api/cart');
-
-              case 4:
-                _ref3 = _context.sent;
-                data = _ref3.data;
-                action = getAll(data);
-                dispatch(action);
-                _context.next = 13;
-                break;
-
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](1);
-                console.log(_context.t0);
-
-              case 13:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[1, 10]]);
-      }));
-
-      return function (_x, _x2, _x3) {
-        return _ref2.apply(this, arguments);
-      };
-    }()
-  );
-};
-var addOrderThunk = function addOrderThunk(bobaId, quantity) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref5 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2(dispatch, getState, _ref4) {
-        var axios, _ref6, data;
-
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                axios = _ref4.axios;
-                _context2.prev = 1;
-                _context2.next = 4;
-                return axios.post('/api/cart', {
-                  bobaId: bobaId,
-                  quantity: quantity
-                });
-
-              case 4:
-                _ref6 = _context2.sent;
-                data = _ref6.data;
-                dispatch(addOrder(data));
-                _context2.next = 12;
-                break;
-
-              case 9:
-                _context2.prev = 9;
-                _context2.t0 = _context2["catch"](1);
-                console.log(_context2.t0);
-
-              case 12:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, null, [[1, 9]]);
-      }));
-
-      return function (_x4, _x5, _x6) {
-        return _ref5.apply(this, arguments);
-      };
-    }()
-  );
-};
-var removeOrderThunk = function removeOrderThunk(bobaId) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref8 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee3(dispatch, getState, _ref7) {
-        var axios, _ref9, data;
-
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                axios = _ref7.axios;
-                _context3.prev = 1;
-                _context3.next = 4;
-                return axios["delete"]("/api/cart/".concat(bobaId));
-
-              case 4:
-                _ref9 = _context3.sent;
-                data = _ref9.data;
-                dispatch(removeOrder(data));
-                _context3.next = 12;
-                break;
-
-              case 9:
-                _context3.prev = 9;
-                _context3.t0 = _context3["catch"](1);
-                console.log(_context3.t0);
-
-              case 12:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, null, [[1, 9]]);
-      }));
-
-      return function (_x7, _x8, _x9) {
-        return _ref8.apply(this, arguments);
-      };
-    }()
-  );
-};
-var updateQtyThunk = function updateQtyThunk(bobaId, quantity) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref11 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee4(dispatch, getState, _ref10) {
-        var axios, _ref12, data;
-
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                axios = _ref10.axios;
-                _context4.prev = 1;
-                _context4.next = 4;
-                return axios.put('/api/cart/', {
-                  bobaId: bobaId,
-                  quantity: quantity
-                });
-
-              case 4:
-                _ref12 = _context4.sent;
-                data = _ref12.data;
-                dispatch(updateQty(data));
-                _context4.next = 12;
-                break;
-
-              case 9:
-                _context4.prev = 9;
-                _context4.t0 = _context4["catch"](1);
-                console.log(_context4.t0);
-
-              case 12:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, null, [[1, 9]]);
-      }));
-
-      return function (_x10, _x11, _x12) {
-        return _ref11.apply(this, arguments);
-      };
-    }()
-  );
-}; // state
-
-var initialState = {
-  cart: [] // reducer
-
-};
-
-var cart = function cart() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case GET_ALL:
-      action.cart && action.cart.bobas && action.cart.bobas.map(function (each, i) {
-        if (each.orderBoba) {
-          action.cart.bobas[i].quantity = each.orderBoba.quantity;
-        }
-      });
-      return _objectSpread({}, state, {
-        cart: action.cart
-      });
-
-    case ADD_ORDER:
-      return _objectSpread({}, state, {
-        cart: action.cart
-      });
-
-    case REMOVE_ORDER:
-      return _objectSpread({}, state, {
-        cart: action.bobaId // cart: state.cart.bobas.filter(boba => boba.id !== action.bobaId)
-
-      });
-
-    case UPDATE_QTY:
-      var newState = state.cart.bobas.map(function (boba) {
-        if (boba.id === action.data.bobaId) {
-          return _objectSpread({}, boba, {
-            orderBoba: action.data,
-            quantity: action.data.quantity
-          });
-        }
-
-        return boba;
-      });
-      return _objectSpread({}, state, {
-        cart: _objectSpread({}, state.cart, {
-          bobas: newState
-        })
-      });
-
-    default:
-      return state;
-  }
-}; // export
-
-
-/* harmony default export */ __webpack_exports__["default"] = (cart);
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/tiff/GH/on-site/labs/Grace-Shopper/client/store/cart.js: Unexpected token, expected \",\" (28:0)\n\n\u001b[0m \u001b[90m 26 | \u001b[39m  orderId\u001b[0m\n\u001b[0m \u001b[90m 27 | \u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 28 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mconst\u001b[39m updateQty \u001b[33m=\u001b[39m data \u001b[33m=>\u001b[39m ({\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 29 | \u001b[39m  type\u001b[33m:\u001b[39m \u001b[33mUPDATE_QTY\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 30 | \u001b[39m  data\u001b[0m\n\u001b[0m \u001b[90m 31 | \u001b[39m})\u001b[0m\n    at Object.raise (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:6325:17)\n    at Object.unexpected (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:7642:16)\n    at Object.expect (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:7628:28)\n    at Object.parseObj (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:9150:14)\n    at Object.parseExprAtom (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8784:28)\n    at Object.parseExprAtom (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:3601:20)\n    at Object.parseExprSubscripts (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8412:23)\n    at Object.parseMaybeUnary (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8392:21)\n    at Object.parseExprOps (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8267:23)\n    at Object.parseMaybeConditional (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8240:23)\n    at Object.parseMaybeAssign (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8187:21)\n    at Object.parseParenAndDistinguishExpression (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8978:28)\n    at Object.parseExprAtom (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8762:21)\n    at Object.parseExprAtom (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:3601:20)\n    at Object.parseExprSubscripts (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8412:23)\n    at Object.parseMaybeUnary (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8392:21)\n    at Object.parseExprOps (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8267:23)\n    at Object.parseMaybeConditional (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8240:23)\n    at Object.parseMaybeAssign (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8187:21)\n    at Object.parseFunctionBody (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:9406:24)\n    at Object.parseArrowExpression (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:9365:10)\n    at Object.parseExprAtom (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8715:18)\n    at Object.parseExprAtom (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:3601:20)\n    at Object.parseExprSubscripts (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8412:23)\n    at Object.parseMaybeUnary (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8392:21)\n    at Object.parseExprOps (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8267:23)\n    at Object.parseMaybeConditional (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8240:23)\n    at Object.parseMaybeAssign (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:8187:21)\n    at Object.parseVar (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:10480:26)\n    at Object.parseVarStatement (/Users/tiff/GH/on-site/labs/Grace-Shopper/node_modules/@babel/parser/lib/index.js:10299:10)");
 
 /***/ }),
 

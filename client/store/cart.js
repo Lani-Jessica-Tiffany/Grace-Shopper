@@ -2,6 +2,7 @@
 const GET_ALL = 'GET_ALL'
 const ADD_ORDER = 'ADD_ORDER'
 const REMOVE_ORDER = 'REMOVE_ORDER'
+const CHECKOUT = 'CHECKOUT'
 const UPDATE_QTY = 'UPDATE_QTY'
 
 // action creator
@@ -18,6 +19,11 @@ const addOrder = cart => ({
 const removeOrder = bobaId => ({
   type: REMOVE_ORDER,
   bobaId
+})
+
+const checkout = orderId => ({
+  type: CHECKOUT,
+  orderId
 })
 
 export const updateQty = data => ({
@@ -74,6 +80,14 @@ export const updateQtyThunk = (bobaId, quantity) => async (
     console.log(err)
   }
 }
+export const checkoutThunk = orderId => async (dispatch, getState, {axios}) => {
+  try {
+    const {data} = await axios.put('api/cart/checkout', orderId)
+    dispatch(checkout(data))
+  } catch (err) {
+    console.log(err)
+  }
+}
 
 // state
 const initialState = {
@@ -102,6 +116,9 @@ const cart = (state = initialState, action) => {
         cart: action.bobaId
         // cart: state.cart.bobas.filter(boba => boba.id !== action.bobaId)
       }
+
+    case CHECKOUT:
+      return {...state, cart: action.type}
 
     case UPDATE_QTY:
       const newState = state.cart.bobas.map(boba => {
