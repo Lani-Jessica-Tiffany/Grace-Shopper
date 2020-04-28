@@ -247,7 +247,6 @@ router.delete('/:bobaId', async (req, res, next) => {
         }
       }
       cart.forEach(remove)
-      console.log('caaaart', cart)
       res.json(removedItem)
     }
   } catch (err) {
