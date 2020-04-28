@@ -397,17 +397,12 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CartItem).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_this), "incrementQty", function (id) {
-      _this.props.addQty(id);
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "decrementQty", function (id) {
-      _this.props.subtractQty(id);
+    _defineProperty(_assertThisInitialized(_this), "updateQuantity", function (id, quantity) {
+      _this.props.update(id, quantity);
     });
 
     _this.removeOrder = _this.removeOrder.bind(_assertThisInitialized(_this));
-    _this.incrementQty = _this.incrementQty.bind(_assertThisInitialized(_this));
-    _this.decrementQty = _this.decrementQty.bind(_assertThisInitialized(_this));
+    _this.updateQuantity = _this.updateQuantity.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -427,7 +422,13 @@ function (_Component) {
           name = _this$props.name,
           imageUrl = _this$props.imageUrl,
           price = _this$props.price;
-      if (this.props.quantity) quantity = this.props.quantity;else quantity = this.props.orderBoba.quantity;
+
+      if (this.props.quantity) {
+        quantity = this.props.quantity;
+      } else {
+        quantity = this.props.orderBoba.quantity;
+      }
+
       var realPrice = String(price * quantity);
       realPrice = realPrice.slice(0, realPrice.length - 2) + '.' + realPrice.slice(realPrice.length - 2);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -436,17 +437,17 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Name: ", name, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Price: $", realPrice), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Quantity: ", quantity, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: function onClick() {
-          return _this2.incrementQty(id);
+          return _this2.updateQuantity(id, quantity + 1);
         }
       }, "+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: function onClick() {
-          return _this2.decrementQty(id);
+          return _this2.updateQuantity(id, quantity - 1);
         }
       }, "-")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: function onClick() {
-          return _this2.removeOrder(id);
+          return _this2.removeOrder(id, quantity);
         }
       }, ' ', "Remove From Cart"));
     }
@@ -496,7 +497,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 // import
 
 
- // import CartAgg from './cart-agg'
 
  // component
 
@@ -529,8 +529,7 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, bobas.map(function (boba) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cart_item__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({}, boba, {
           "delete": _this.props.dispatchRemoveOrderThunk,
-          addQty: _this.props.incrementQty,
-          subtractQty: _this.props.decrementQty,
+          update: _this.props.dispatchUpdateQtyThunk,
           key: boba.id
         }));
       }));
@@ -555,11 +554,8 @@ var mapDispatchtoProps = function mapDispatchtoProps(dispatch) {
     dispatchRemoveOrderThunk: function dispatchRemoveOrderThunk(id) {
       return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["removeOrderThunk"])(id));
     },
-    incrementQty: function incrementQty(id) {
-      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["addQty"])(id));
-    },
-    decrementQty: function decrementQty(id) {
-      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["subtractQty"])(id));
+    dispatchUpdateQtyThunk: function dispatchUpdateQtyThunk(id, qty) {
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_2__["updateQtyThunk"])(id, qty));
     }
   };
 }; // export
@@ -1602,16 +1598,16 @@ var boba = function boba() {
 /*!******************************!*\
   !*** ./client/store/cart.js ***!
   \******************************/
-/*! exports provided: addQty, subtractQty, getAllThunk, addOrderThunk, removeOrderThunk, default */
+/*! exports provided: updateQty, getAllThunk, addOrderThunk, removeOrderThunk, updateQtyThunk, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addQty", function() { return addQty; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subtractQty", function() { return subtractQty; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateQty", function() { return updateQty; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllThunk", function() { return getAllThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addOrderThunk", function() { return addOrderThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeOrderThunk", function() { return removeOrderThunk; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateQtyThunk", function() { return updateQtyThunk; });
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1626,8 +1622,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var GET_ALL = 'GET_ALL';
 var ADD_ORDER = 'ADD_ORDER';
 var REMOVE_ORDER = 'REMOVE_ORDER';
-var ADD_QTY = 'ADD_QTY';
-var SUBTRACT_QTY = 'SUBTRACT_QTY'; // action creator
+var UPDATE_QTY = 'UPDATE_QTY'; // action creator
 
 var getAll = function getAll(cart) {
   return {
@@ -1650,16 +1645,10 @@ var removeOrder = function removeOrder(bobaId) {
   };
 };
 
-var addQty = function addQty(bobaId) {
+var updateQty = function updateQty(data) {
   return {
-    type: ADD_QTY,
-    bobaId: bobaId
-  };
-};
-var subtractQty = function subtractQty(bobaId) {
-  return {
-    type: SUBTRACT_QTY,
-    bobaId: bobaId
+    type: UPDATE_QTY,
+    data: data
   };
 }; // thunk creator
 
@@ -1798,6 +1787,53 @@ var removeOrderThunk = function removeOrderThunk(bobaId) {
       };
     }()
   );
+};
+var updateQtyThunk = function updateQtyThunk(bobaId, quantity) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref11 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee4(dispatch, getState, _ref10) {
+        var axios, _ref12, data;
+
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                axios = _ref10.axios;
+                _context4.prev = 1;
+                _context4.next = 4;
+                return axios.put('/api/cart/', {
+                  bobaId: bobaId,
+                  quantity: quantity
+                });
+
+              case 4:
+                _ref12 = _context4.sent;
+                data = _ref12.data;
+                dispatch(updateQty(data));
+                _context4.next = 12;
+                break;
+
+              case 9:
+                _context4.prev = 9;
+                _context4.t0 = _context4["catch"](1);
+                console.log(_context4.t0);
+
+              case 12:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[1, 9]]);
+      }));
+
+      return function (_x10, _x11, _x12) {
+        return _ref11.apply(this, arguments);
+      };
+    }()
+  );
 }; // state
 
 var initialState = {
@@ -1831,13 +1867,12 @@ var cart = function cart() {
 
       });
 
-    case ADD_QTY:
+    case UPDATE_QTY:
       var newState = state.cart.bobas.map(function (boba) {
-        if (boba.id === action.bobaId) {
+        if (boba.id === action.data.bobaId) {
           return _objectSpread({}, boba, {
-            orderBoba: _objectSpread({}, boba.orderBoba, {
-              quantity: Math.min(boba.orderBoba.quantity + 1, 10)
-            })
+            orderBoba: action.data,
+            quantity: action.data.quantity
           });
         }
 
@@ -1846,24 +1881,6 @@ var cart = function cart() {
       return _objectSpread({}, state, {
         cart: _objectSpread({}, state.cart, {
           bobas: newState
-        })
-      });
-
-    case SUBTRACT_QTY:
-      var newStateTwo = state.cart.bobas.map(function (boba) {
-        if (boba.id === action.bobaId) {
-          return _objectSpread({}, boba, {
-            orderBoba: _objectSpread({}, boba.orderBoba, {
-              quantity: Math.max(boba.orderBoba.quantity - 1, 1)
-            })
-          });
-        }
-
-        return boba;
-      });
-      return _objectSpread({}, state, {
-        cart: _objectSpread({}, state.cart, {
-          bobas: newStateTwo
         })
       });
 

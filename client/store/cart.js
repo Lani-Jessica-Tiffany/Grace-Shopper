@@ -2,8 +2,7 @@
 const GET_ALL = 'GET_ALL'
 const ADD_ORDER = 'ADD_ORDER'
 const REMOVE_ORDER = 'REMOVE_ORDER'
-const ADD_QTY = 'ADD_QTY'
-const SUBTRACT_QTY = 'SUBTRACT_QTY'
+const UPDATE_QTY = 'UPDATE_QTY'
 
 // action creator
 const getAll = cart => ({
@@ -21,14 +20,9 @@ const removeOrder = bobaId => ({
   bobaId
 })
 
-export const addQty = bobaId => ({
-  type: ADD_QTY,
-  bobaId
-})
-
-export const subtractQty = bobaId => ({
-  type: SUBTRACT_QTY,
-  bobaId
+export const updateQty = data => ({
+  type: UPDATE_QTY,
+  data
 })
 
 // thunk creator
@@ -68,6 +62,19 @@ export const removeOrderThunk = bobaId => async (
   }
 }
 
+export const updateQtyThunk = (bobaId, quantity) => async (
+  dispatch,
+  getState,
+  {axios}
+) => {
+  try {
+    const {data} = await axios.put('/api/cart/', {bobaId, quantity})
+    dispatch(updateQty(data))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 // state
 const initialState = {
   cart: []
@@ -96,35 +103,18 @@ const cart = (state = initialState, action) => {
         // cart: state.cart.bobas.filter(boba => boba.id !== action.bobaId)
       }
 
-    case ADD_QTY:
+    case UPDATE_QTY:
       const newState = state.cart.bobas.map(boba => {
-        if (boba.id === action.bobaId) {
+        if (boba.id === action.data.bobaId) {
           return {
             ...boba,
-            orderBoba: {
-              ...boba.orderBoba,
-              quantity: Math.min(boba.orderBoba.quantity + 1, 10)
-            }
+            orderBoba: action.data,
+            quantity: action.data.quantity
           }
         }
         return boba
       })
       return {...state, cart: {...state.cart, bobas: newState}}
-
-    case SUBTRACT_QTY:
-      const newStateTwo = state.cart.bobas.map(boba => {
-        if (boba.id === action.bobaId) {
-          return {
-            ...boba,
-            orderBoba: {
-              ...boba.orderBoba,
-              quantity: Math.max(boba.orderBoba.quantity - 1, 1)
-            }
-          }
-        }
-        return boba
-      })
-      return {...state, cart: {...state.cart, bobas: newStateTwo}}
 
     default:
       return state
