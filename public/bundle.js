@@ -510,7 +510,7 @@ function (_Component) {
     value: function render() {
       var _this = this;
 
-      console.log(this.props, "BOBAS FROM CART");
+      console.log(this.props, 'BOBAS FROM CART');
 
       if (!this.props.cart || !this.props.cart.bobas) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Add something to your cart!");
@@ -894,12 +894,12 @@ function (_Component) {
       var quantity = parseFloat(this.state.quantity);
       this.props.dispatchAddOrderThunk(bobaId, quantity);
       this.setState({
-        quantity: "",
-        message: "Added to Cart"
+        quantity: '',
+        message: 'Added to Cart'
       });
       setTimeout(function () {
         _this2.setState({
-          message: ""
+          message: ''
         });
       }, 2000);
     }
@@ -45787,7 +45787,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
