@@ -10,37 +10,39 @@ const Navbar = ({handleClick, isLoggedIn, admin}) => (
       <Link className="navbar-brand bobasaur" to="/">
         BOBASAUR
       </Link>
-      <Link className="link" to="/boba">
-        Shop
-      </Link>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          {/* <Link to="/home">Home</Link> */}
-          {/* only  if admin */}
-          {admin && (
-            <Link className="link" to="/users">
-              Users
+      <div className="navbar ml-auto">
+        <Link className="link" to="/boba">
+          Shop
+        </Link>
+        {isLoggedIn ? (
+          <div>
+            {/* The navbar will show these links after you log in */}
+            {/* <Link to="/home">Home</Link> */}
+            {/* only  if admin */}
+            {admin && (
+              <Link className="link" to="/users">
+                Users
+              </Link>
+            )}
+            <a className="link" href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        ) : (
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <Link className="link" to="/login">
+              Login
             </Link>
-          )}
-          <a className="link" href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link className="link" to="/login">
-            Login
-          </Link>
-          <Link className="link" to="/signup">
-            Sign Up
-          </Link>
-        </div>
-      )}
-      <Link className="link" to="/cart">
-        Cart
-      </Link>
+            <Link className="link" to="/signup">
+              Sign Up
+            </Link>
+          </div>
+        )}
+        <Link className="link" to="/cart">
+          Cart
+        </Link>
+      </div>
     </nav>
     <hr />
   </div>
