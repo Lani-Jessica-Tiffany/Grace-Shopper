@@ -129,6 +129,13 @@ const cart = (state = initialState, action) => {
             quantity: action.data.quantity
           }
         }
+        if (boba.id === action.data.id) {
+          return {
+            ...boba,
+            orderBoba: action.data,
+            quantity: action.data.quantity
+          }
+        }
         return boba
       })
       return {...state, cart: {...state.cart, bobas: newState}}
