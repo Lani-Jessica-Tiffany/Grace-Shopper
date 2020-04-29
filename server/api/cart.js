@@ -146,7 +146,6 @@ router.put('/', async (req, res, next) => {
         returning: true,
         plain: true
       })
-      console.log('item', item[1])
       res.json(item[1])
     } else {
       // guest experience
@@ -238,7 +237,7 @@ router.delete('/:bobaId', async (req, res, next) => {
         }
       }
       cart.forEach(remove)
-      res.json(removedItem)
+      res.json({bobas: cart})
     }
   } catch (err) {
     next(err)
