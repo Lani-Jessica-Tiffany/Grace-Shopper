@@ -35,25 +35,32 @@ export default class CartItem extends Component {
         <img src={imageUrl} className="bobaImg" />
         <h5>Name: {name} </h5>
         <h5>Price: ${realPrice}</h5>
-        <h5>
-          Quantity: {quantity}
-          <button
-            type="button"
-            onClick={() => this.updateQuantity(id, quantity + 1)}
-          >
-            +
-          </button>
-          <button
-            type="button"
-            onClick={() => this.updateQuantity(id, quantity - 1)}
-          >
-            -
-          </button>
-        </h5>
-        <button type="button" onClick={() => this.removeOrder(id, quantity)}>
-          {' '}
-          Remove From Cart
-        </button>
+        {this.props.update && (
+          <div>
+            <h5>
+              Quantity: {quantity}
+              <button
+                type="button"
+                onClick={() => this.updateQuantity(id, quantity + 1)}
+              >
+                +
+              </button>
+              <button
+                type="button"
+                onClick={() => this.updateQuantity(id, quantity - 1)}
+              >
+                -
+              </button>
+            </h5>
+            <button
+              type="button"
+              onClick={() => this.removeOrder(id, quantity)}
+            >
+              {' '}
+              Remove From Cart
+            </button>
+          </div>
+        )}
       </div>
     )
   }

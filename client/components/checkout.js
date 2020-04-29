@@ -13,57 +13,47 @@ export class Checkout extends React.Component {
   componentDidMount() {
     this.props.dispatchGetAllThunk()
   }
-  checkout(orderId) {
-    this.props.dispatchCheckoutThunk(orderId)
+  checkout() {
+    this.props.dispatchCheckoutThunk()
   }
 
   render() {
-    console.log(this.props, 'CHECKOUT')
-    if (!this.props.cart || !this.props.cart.bobas) {
+    if (
+      !this.props.cart ||
+      !this.props.cart.bobas ||
+      !this.props.cart.bobas.length
+    ) {
       return <h1>Nothing in your Cart</h1>
     }
-    return <div />
-    /* const {price, quantity, name, imageUrl} = this.props.cart.bobas
-
-    console.log(name)
-    let realPrice = String(price * quantity)
-    realPrice =
-      realPrice.slice(0, realPrice.length - 2) +
-      '.' + realPrice.slice(realPrice.length - 2)
-
-
-    return(
+    const {bobas} = this.props.cart
+    let total = 0
+    bobas.map(each => {
+      total += each.price * each.quantity
+    })
+    total =
+      String(total).slice(0, String(total).length - 2) +
+      '.' +
+      String(total).slice(String(total).length - 2)
+    return (
       <div>
         <div>
-        <h3>Checkout Here:</h3>
-        <h4>Review your order</h4>
+          <h3>Checkout Here:</h3>
+          <h4>Review your order</h4>
         </div>
-         {bobas && bobas.length
-        ? bobas.map(boba =>(
-          <div key={boba.id}>
-          <h5>Name: {name}</h5>
-          <img src={imageUrl} className="bobaImg" />
-          <h5>Price: ${realPrice}</h5>
-          <h5>Quantity: {quantity}</h5>
-          </div>
-        ))
-        : <h1>Loading</h1>
-        }
+        {bobas.map(boba => <CartItem {...boba} key={boba.id} update={false} />)}
         <div>
-        <button
-        type= "button"
-        onClick = {() => this.checkout(orderId)} >
-        Place my Order
-        </button>
-        <p>{this.state.message}</p>
+          <h5>Grand Total: $ {total}</h5>
+          <button type="button" onClick={() => this.checkout()}>
+            Place my Order
+          </button>
+          <p>{this.state.message}</p>
         </div>
       </div>
-    ) */
+    )
   }
 }
 
 const mapStatetoProps = state => {
-  console.log(state, 'STATE')
   return {
     cart: state.cart.cart
   }
@@ -71,7 +61,7 @@ const mapStatetoProps = state => {
 const mapDispatchtoProps = dispatch => {
   return {
     dispatchGetAllThunk: () => dispatch(getAllThunk()),
-    dispatchCheckoutThunk: id => dispatch(checkoutThunk(id))
+    dispatchCheckoutThunk: () => dispatch(checkoutThunk())
   }
 }
 

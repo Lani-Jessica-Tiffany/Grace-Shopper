@@ -21,9 +21,8 @@ const removeOrder = bobaId => ({
   bobaId
 })
 
-const checkout = orderId => ({
-  type: CHECKOUT,
-  orderId
+const checkout = () => ({
+  type: CHECKOUT
 })
 
 export const updateQty = data => ({
@@ -80,9 +79,9 @@ export const updateQtyThunk = (bobaId, quantity) => async (
     console.log(err)
   }
 }
-export const checkoutThunk = orderId => async (dispatch, getState, {axios}) => {
+export const checkoutThunk = () => async (dispatch, getState, {axios}) => {
   try {
-    const {data} = await axios.put('api/cart/checkout', orderId)
+    const {data} = await axios.put('/api/cart/checkout')
     dispatch(checkout(data))
   } catch (err) {
     console.log(err)
@@ -118,7 +117,7 @@ const cart = (state = initialState, action) => {
       }
 
     case CHECKOUT:
-      return {...state, cart: action.type}
+      return {...state, cart: []}
 
     case UPDATE_QTY:
       const newState = state.cart.bobas.map(boba => {
