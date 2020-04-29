@@ -11,62 +11,56 @@ const AuthForm = props => {
 
   return (
     <div className="text-center">
+      <br />
       <form onSubmit={handleSubmit} name={name}>
         {name === 'signup' && (
-          <div>
-            <div className="row justify-content-center">
-              <div className="col">
-                <label htmlFor="firstName">
-                  <small className="text-nowrap">First Name</small>
-                </label>
-                <input
-                  className="form-control"
-                  name="firstName"
-                  type="text"
-                  placeholder="First Name"
-                />
-              </div>
+          <div className="ignore-css">
+            <h3>User Registration</h3>
+            <div className="row form-width mx-auto">
+              <label className="col-sm-3" htmlFor="firstName">
+                <small>First Name</small>
+              </label>
+              <input
+                className="form-control col-sm-9"
+                name="firstName"
+                type="text"
+                placeholder="First Name"
+              />
             </div>
-            <div className="row justify-content-center">
-              <div className="col">
-                <label htmlFor="lastName">
-                  <small>Last Name</small>
-                </label>
-                <input
-                  className="form-control"
-                  name="lastName"
-                  type="text"
-                  placeholder="Last Name"
-                />
-              </div>
+            <div className="row form-width mx-auto">
+              <label className="col-sm-3" htmlFor="lastName">
+                <small>Last Name</small>
+              </label>
+              <input
+                className="form-control col-sm-9"
+                name="lastName"
+                type="text"
+                placeholder="Last Name"
+              />
             </div>
           </div>
         )}
-        <div className="row justify-content-center">
-          <div className="col-sm-6">
-            <label htmlFor="email">
-              <small>Email</small>
-            </label>
-            <input
-              className="form-control"
-              name="email"
-              type="text"
-              placeholder="Email"
-            />
-          </div>
+        <div className="row form-width mx-auto">
+          <label className="col-sm-3" htmlFor="email">
+            <small>Email</small>
+          </label>
+          <input
+            className="form-control col-sm-9"
+            name="email"
+            type="text"
+            placeholder="Email"
+          />
         </div>
-        <div className="row justify-content-center">
-          <div className="col-sm-6">
-            <label htmlFor="password">
-              <small>Password</small>
-            </label>
-            <input
-              className="form-control"
-              name="password"
-              type="password"
-              placeholder="Password"
-            />
-          </div>
+        <div className="row form-width mx-auto">
+          <label className="col-sm-3" htmlFor="password">
+            <small>Password</small>
+          </label>
+          <input
+            className="form-control col-sm-9"
+            name="password"
+            type="password"
+            placeholder="Password"
+          />
         </div>
         <div className="row">
           <div className="col">

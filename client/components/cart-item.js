@@ -33,23 +33,23 @@ export default class CartItem extends Component {
     return (
       <div className="text-center row">
         <div className="col">
-          <img src={imageUrl} className="bobaImg" />
+          <img src={imageUrl} className="bobaImg rounded" />
           <h5>{name} </h5>
         </div>
 
-        <div className="col">
+        <div className="col text-left">
           <h5>Price: ${realPrice}</h5>
           <h5>
-            Quantity: {quantity}
+            Quantity: {quantity}{' '}
             <button
-              className="btn btn-info"
+              className="btn btn-info btn-sm"
               type="button"
               onClick={() => this.updateQuantity(id, quantity + 1)}
             >
               +
-            </button>
+            </button>{' '}
             <button
-              className="btn btn-info"
+              className="btn btn-info btn-sm"
               type="button"
               onClick={() => this.updateQuantity(id, quantity - 1)}
             >

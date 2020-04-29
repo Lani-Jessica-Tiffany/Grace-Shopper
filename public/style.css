@@ -119,3 +119,24 @@ form div {
     color: purple;
   }
 }
+
+.qty-width {
+  max-width: 5em;
+}
+
+.main-text {
+  width: 75%;
+  margin-top: 2em;
+}
+
+.main-font {
+  font-size: calc(18px + 1vw);
+}
+
+.ignore-css {
+  all: unset;
+}
+
+.form-width {
+  max-width: 30em;
+}

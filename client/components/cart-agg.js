@@ -13,7 +13,7 @@ const CartAgg = ({bobas}) => {
       <h1>HI</h1>
       {bobas.bobas.map(boba => (
         <div key={boba.id}>
-          <img src={boba.imageUrl} className="bobaImg" />
+          <img src={boba.imageUrl} className="bobaImg rounded" />
           <h5>Price: ${boba.price}</h5>
           <h5>Quantity: {boba.quantity}</h5>
         </div>
