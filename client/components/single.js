@@ -44,12 +44,13 @@ class Single extends Component {
 
   render() {
     return (
-      <div>
+      <div className="text-center">
         <SingleAgg {...this.props} />
         <form onSubmit={e => this.handleSumbit(e)}>
-          <h5>You Know You Want One:</h5>
+          <h5 className="rainbow-text">You Know You Want One</h5>
           <label htmlFor="quantity">Quantity:</label>
           <input
+            className="w-25 form-control mx-auto"
             onChange={e => this.handleChange(e)}
             type="number"
             id="quantity"
@@ -58,8 +59,12 @@ class Single extends Component {
             value={this.state.quantity}
             name="quantity"
           />
-          <button type="submit">Add to Cart!</button>
-          <p>{this.state.message}</p>
+          <br />
+          <button className="btn btn-primary" type="submit">
+            Add to Cart!
+          </button>
+          <br />
+          <p className="text-success">{this.state.message}</p>
         </form>
       </div>
     )
