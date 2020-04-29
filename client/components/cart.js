@@ -30,6 +30,7 @@ class Cart extends Component {
             key={boba.id}
           />
         ))}
+        <Link to="/cart/checkout">Checkout</Link>
       </div>
     )
   }

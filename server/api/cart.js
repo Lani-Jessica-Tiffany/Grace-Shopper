@@ -165,23 +165,28 @@ router.put('/', async (req, res, next) => {
 //PUT For CHECKOUT
 router.put('/checkout', async (req, res, next) => {
   try {
-    const {orderId} = req.body
     //user experience
     if (req.user) {
-      const orderUp = await Order.findByPk(orderId)
-      console.log(orderUp)
+      const [order] = await Order.findOrCreate({
+        where: {
+          userId: req.user.id,
+          status: false
+        }
+      })
+      const orderUp = await Order.findByPk(order.id)
       await orderUp.update({
         status: true
       })
       res.json(orderUp)
     } else {
       //let cart = req.session.cart
-      const order = await Order.findOrCreate({
-        where: {
+      const order = await Order.create({
+        values: {
           userId: req.session.id,
           status: true
         }
       })
+      req.session.cart = []
       //const orderId = order.id
       // find or create item tied to order
       // const [item, itemCreated] = await OrderBoba.findOrCreate({
