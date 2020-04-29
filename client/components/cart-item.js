@@ -34,36 +34,40 @@ export default class CartItem extends Component {
       <div className="text-center row">
         <div className="col">
           <img src={imageUrl} className="bobaImg rounded" />
-          <h5>{name} </h5>
+          <h5>Name: {name} </h5>
         </div>
 
         <div className="col text-left">
           <h5>Price: ${realPrice}</h5>
-          <h5>
-            Quantity: {quantity}{' '}
-            <button
-              className="btn btn-info btn-sm"
-              type="button"
-              onClick={() => this.updateQuantity(id, quantity + 1)}
-            >
-              +
-            </button>{' '}
-            <button
-              className="btn btn-info btn-sm"
-              type="button"
-              onClick={() => this.updateQuantity(id, quantity - 1)}
-            >
-              -
-            </button>
-          </h5>
-          <button
-            className="btn btn-danger"
-            type="button"
-            onClick={() => this.removeOrder(id, quantity)}
-          >
-            {' '}
-            Remove From Cart
-          </button>
+          {this.props.update && (
+            <div>
+              <h5>
+                Quantity: {quantity}
+                <button
+                  className="btn btn-info btn-sm"
+                  type="button"
+                  onClick={() => this.updateQuantity(id, quantity + 1)}
+                >
+                  +
+                </button>{' '}
+                <button
+                  className="btn btn-info btn-sm"
+                  type="button"
+                  onClick={() => this.updateQuantity(id, quantity - 1)}
+                >
+                  -
+                </button>
+              </h5>
+              <button
+                className="btn btn-danger"
+                type="button"
+                onClick={() => this.removeOrder(id, quantity)}
+              >
+                {' '}
+                Remove From Cart
+              </button>
+            </div>
+          )}
         </div>
       </div>
     )
