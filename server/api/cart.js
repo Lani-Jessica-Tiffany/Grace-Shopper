@@ -146,14 +146,16 @@ router.put('/', async (req, res, next) => {
         returning: true,
         plain: true
       })
+      console.log('itemmm', item[1])
       res.json(item[1])
     } else {
       // guest experience
       let cart = req.session.cart
       // find item with same bobaId as req.body
-      const findItem = cart.find(item => item.bobaId === bobaId)
+      const findItem = cart.find(item => item.id === bobaId)
       //update quantity
       findItem.quantity = quantity
+      console.log('finditem', findItem)
       res.json(findItem)
     }
   } catch (err) {
