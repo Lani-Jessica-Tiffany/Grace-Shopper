@@ -30,7 +30,15 @@ class Cart extends Component {
             key={boba.id}
           />
         ))}
-        <Link to="/cart/checkout">Checkout</Link>
+        <br />
+        <div className="text-center">
+          <Link
+            className="text-white checkout-button bg-success"
+            to="/cart/checkout"
+          >
+            Checkout
+          </Link>
+        </div>
       </div>
     )
   }

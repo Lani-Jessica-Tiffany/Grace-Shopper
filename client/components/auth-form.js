@@ -15,7 +15,8 @@ const AuthForm = props => {
       <form onSubmit={handleSubmit} name={name}>
         {name === 'signup' && (
           <div className="ignore-css">
-            <h3>User Registration</h3>
+            <h2>User Registration</h2>
+            <br />
             <div className="row form-width mx-auto">
               <label className="col-sm-3" htmlFor="firstName">
                 <small>First Name</small>

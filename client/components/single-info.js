@@ -5,7 +5,7 @@ import {updateOrderThunk, removeOrderThunk} from '../store/cart'
 
 // component
 export const SingleBasic = ({boba: {id, name, imageUrl}}) => (
-  <div className="text-center">
+  <div className="text-center boba-margin">
     <Link to={`/boba/${id}`}>
       <img src={imageUrl} className="bobaImg rounded" />
       <p>{name}</p>

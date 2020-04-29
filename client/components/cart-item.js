@@ -31,10 +31,10 @@ export default class CartItem extends Component {
       realPrice.slice(realPrice.length - 2)
 
     return (
-      <div className="text-center row">
-        <div className="col">
+      <div className="row mx-auto">
+        <div className="col text-right">
           <img src={imageUrl} className="bobaImg rounded" />
-          <h5>Name: {name} </h5>
+          <h5>{name} </h5>
         </div>
 
         <div className="col text-left">

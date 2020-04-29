@@ -4,9 +4,9 @@ import {SingleBasic} from './single-info'
 
 // component
 const AllAgg = ({bobas}) => (
-  <div className="container">
+  <div className="container mx-auto">
     {/* aggregate all components for boba here (e.g. info, quantity, add-ons) */}
-    <div className="row justify-content-md-center">
+    <div className="row">
       {bobas.map(boba => (
         <SingleBasic className="" key={`boba${boba.id}`} boba={boba} />
       ))}

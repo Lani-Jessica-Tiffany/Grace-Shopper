@@ -21,8 +21,8 @@ form div {
 }
 
 .bobaImg {
-  height: 150px;
-  width: 160px;
+  height: 180px;
+  width: 190px;
 }
 
 .rainbow-text {
@@ -139,4 +139,62 @@ form div {
 
 .form-width {
   max-width: 30em;
+}
+
+input {
+  border: 0px solid #000;
+  margin: 0;
+  background: transparent;
+  width: 100%;
+}
+table tr td {
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+table {
+  background: #fff none repeat scroll 0 0;
+  border-left: 1px solid #000;
+  border-top: 1px solid #000;
+  border-collapse: separate;
+  border-spacing: 1em;
+  margin-left: 1em;
+  margin-bottom: 1em;
+  max-width: 800px;
+  width: 90%;
+}
+table tr:nth-child(even) {
+  background: #ccc;
+}
+table tr:nth-child(odd) {
+  background: #eee;
+}
+
+.checkout-button {
+  padding: 0.7em;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.boba-margin {
+  margin: 1em;
+}
+
+.cart-width {
+  width: 70%;
+}
+
+.bobasaur {
+  color: #9e3c49;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link {
+  color: #92d1b3;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.background {
+  background-color: #49896f;
 }
