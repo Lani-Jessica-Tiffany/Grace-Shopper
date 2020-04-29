@@ -56,7 +56,7 @@ router.get('/', adminOnly, async (req, res, next) => {
 } */
 
 //Single user - individual user and admin
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', adminOnly, async (req, res, next) => {
   try {
     const oneUser = await User.findByPk(req.params.id)
     res.json(oneUser)
@@ -67,7 +67,7 @@ router.get('/:id', async (req, res, next) => {
 // Add User -ADMIN Function (this might be problem to tackle later)
 
 //Update User - individual user and admin
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', adminOnly, async (req, res, next) => {
   try {
     await User.update(req.body, {
       where: {id: req.params.id}
@@ -79,7 +79,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 //Delete - individual user and admin
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', adminOnly, async (req, res, next) => {
   try {
     await User.destroy({
       where: {id: req.params.id}
