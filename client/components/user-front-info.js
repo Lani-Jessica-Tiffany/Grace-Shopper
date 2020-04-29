@@ -4,8 +4,16 @@ import React from 'react'
 // component
 export const UserFrontBasic = ({user: {id, email, firstName, lastName}}) => (
   <div>
-    <h5>{`User ID: ${id}`}</h5>
-    <h5>{`Name: ${firstName} ${lastName}`}</h5>
-    <h5>{`Email: ${email}`}</h5>
+    <table>
+      <tr>
+        <td>{`User ID: ${id}`}</td>
+      </tr>
+      <tr>
+        <td>{`Name: ${firstName} ${lastName}`}</td>
+      </tr>
+      <tr>
+        <td>{`Email: ${email}`}</td>
+      </tr>
+    </table>
   </div>
 )

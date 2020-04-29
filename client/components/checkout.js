@@ -23,7 +23,7 @@ export class Checkout extends React.Component {
       !this.props.cart.bobas ||
       !this.props.cart.bobas.length
     ) {
-      return <h1>Nothing in your Cart</h1>
+      return <h1 className="text-center">Nothing in your Cart</h1>
     }
     const {bobas} = this.props.cart
     let total = 0
@@ -35,15 +35,21 @@ export class Checkout extends React.Component {
       '.' +
       String(total).slice(String(total).length - 2)
     return (
-      <div>
+      <div className="text-center">
         <div>
           <h3>Checkout Here:</h3>
           <h4>Review your order</h4>
         </div>
+        <br />
         {bobas.map(boba => <CartItem {...boba} key={boba.id} update={false} />)}
+        <br />
         <div>
           <h5>Grand Total: $ {total}</h5>
-          <button type="button" onClick={() => this.checkout()}>
+          <button
+            className="btn btn-success"
+            type="button"
+            onClick={() => this.checkout()}
+          >
             Place my Order
           </button>
           <p>{this.state.message}</p>

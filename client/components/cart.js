@@ -17,7 +17,7 @@ class Cart extends Component {
   }
   render() {
     if (!this.props.cart || !this.props.cart.bobas) {
-      return <h1>Add something to your cart!</h1>
+      return <h1 className="text-center">Add something to your cart!</h1>
     }
     const {bobas} = this.props.cart
     return (
@@ -30,7 +30,15 @@ class Cart extends Component {
             key={boba.id}
           />
         ))}
-        <Link to="/cart/checkout">Checkout</Link>
+        <br />
+        <div className="text-center">
+          <Link
+            className="text-white checkout-button bg-success"
+            to="/cart/checkout"
+          >
+            Checkout
+          </Link>
+        </div>
       </div>
     )
   }

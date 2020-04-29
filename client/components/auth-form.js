@@ -10,38 +10,65 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
+    <div className="text-center">
+      <br />
       <form onSubmit={handleSubmit} name={name}>
         {name === 'signup' && (
-          <div>
-            <div>
-              <label htmlFor="firstName">
+          <div className="ignore-css">
+            <h2>User Registration</h2>
+            <br />
+            <div className="row form-width mx-auto">
+              <label className="col-sm-3" htmlFor="firstName">
                 <small>First Name</small>
               </label>
-              <input name="firstName" type="text" />
+              <input
+                className="form-control col-sm-9"
+                name="firstName"
+                type="text"
+                placeholder="First Name"
+              />
             </div>
-            <div>
-              <label htmlFor="lastName">
+            <div className="row form-width mx-auto">
+              <label className="col-sm-3" htmlFor="lastName">
                 <small>Last Name</small>
               </label>
-              <input name="lastName" type="text" />
+              <input
+                className="form-control col-sm-9"
+                name="lastName"
+                type="text"
+                placeholder="Last Name"
+              />
             </div>
           </div>
         )}
-        <div>
-          <label htmlFor="email">
+        <div className="row form-width mx-auto">
+          <label className="col-sm-3" htmlFor="email">
             <small>Email</small>
           </label>
-          <input name="email" type="text" />
+          <input
+            className="form-control col-sm-9"
+            name="email"
+            type="text"
+            placeholder="Email"
+          />
         </div>
-        <div>
-          <label htmlFor="password">
+        <div className="row form-width mx-auto">
+          <label className="col-sm-3" htmlFor="password">
             <small>Password</small>
           </label>
-          <input name="password" type="password" />
+          <input
+            className="form-control col-sm-9"
+            name="password"
+            type="password"
+            placeholder="Password"
+          />
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
+        <div className="row">
+          <div className="col">
+            <button type="submit" className="btn btn-primary">
+              {displayName}
+            </button>
+          </div>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
